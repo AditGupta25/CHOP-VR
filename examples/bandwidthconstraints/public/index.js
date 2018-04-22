@@ -1158,7 +1158,7 @@ module.exports={
   "_args": [
     [
       "@twilio/sip.js@0.7.7",
-      "/Users/Adit/Desktop/CHOP/CHOP-VR-Project/chop-vr-v2.0/chop-app"
+      "/Users/Adit/Desktop/CHOP-VR"
     ]
   ],
   "_from": "@twilio/sip.js@0.7.7",
@@ -1183,7 +1183,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/@twilio/sip.js/-/sip.js-0.7.7.tgz",
   "_spec": "0.7.7",
-  "_where": "/Users/Adit/Desktop/CHOP/CHOP-VR-Project/chop-vr-v2.0/chop-app",
+  "_where": "/Users/Adit/Desktop/CHOP-VR",
   "author": {
     "name": "OnSIP",
     "email": "developer@onsip.com",
@@ -15194,7 +15194,7 @@ module.exports={
   "_args": [
     [
       "@twilio/webrtc@2.0.0",
-      "/Users/Adit/Desktop/CHOP/CHOP-VR-Project/chop-vr-v2.0/chop-app"
+      "/Users/Adit/Desktop/CHOP-VR"
     ]
   ],
   "_from": "@twilio/webrtc@2.0.0",
@@ -15219,7 +15219,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/@twilio/webrtc/-/webrtc-2.0.0.tgz",
   "_spec": "2.0.0",
-  "_where": "/Users/Adit/Desktop/CHOP/CHOP-VR-Project/chop-vr-v2.0/chop-app",
+  "_where": "/Users/Adit/Desktop/CHOP-VR",
   "author": {
     "name": "Manjesh Malavalli",
     "email": "mmalavalli@twilio.com"
@@ -29741,7 +29741,7 @@ module.exports={
   "_args": [
     [
       "twilio-video@1.8.0",
-      "/Users/Adit/Desktop/CHOP/CHOP-VR-Project/chop-vr-v2.0/chop-app"
+      "/Users/Adit/Desktop/CHOP-VR"
     ]
   ],
   "_from": "twilio-video@1.8.0",
@@ -29765,7 +29765,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/twilio-video/-/twilio-video-1.8.0.tgz",
   "_spec": "1.8.0",
-  "_where": "/Users/Adit/Desktop/CHOP/CHOP-VR-Project/chop-vr-v2.0/chop-app",
+  "_where": "/Users/Adit/Desktop/CHOP-VR",
   "author": {
     "name": "Mark Andrus Roberts",
     "email": "mroberts@twilio.com"
