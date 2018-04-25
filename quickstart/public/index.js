@@ -28595,17 +28595,22 @@ function roomJoined(room) {
   document.getElementById('button-leave').style.display = 'inline';
 
   // Attach LocalParticipant's Tracks, if not already attached.
-  var previewContainer = document.getElementById('local-media');
-  if (!previewContainer.querySelector('video')) {
-    attachParticipantTracks(room.localParticipant, previewContainer);
+  var previewContainer1 = document.getElementById('local-div1');
+  if (!previewContainer1.querySelector('video')) {
+    attachParticipantTracks(room.localParticipant, previewContainer1);
   }
+
+  var previewContainer2 = document.getElementById('local-div2');
+  if (!previewContainer2.querySelector('video')) {
+    attachParticipantTracks(room.localParticipant, previewContainer2);
+  }
+
 
   // Attach the Tracks of the Room's Participants.
   room.participants.forEach(function(participant) {
     log("Already in Room: '" + participant.identity + "'");
-    var previewContainer = document.getElementsByClassName('remote-media');
-    attachParticipantTracks(participant, previewContainer[0]);
-    attachParticipantTracks(participant, previewContainer[1]);
+    var previewContainer = document.getElementById('remote-media');
+    attachParticipantTracks(participant, previewContainer);
   });
 
   // When a Participant joins the Room, log the event.
@@ -28616,9 +28621,8 @@ function roomJoined(room) {
   // When a Participant adds a Track, attach it to the DOM.
   room.on('trackAdded', function(track, participant) {
     log(participant.identity + " added track: " + track.kind);
-    var previewContainer = document.getElementsByClassName('remote-media');
-    attachTracks([track], previewContainer[0]);
-    attachTracks([track], previewContainer[1]);
+    var previewContainer = document.getElementById('remote-media');
+    attachTracks([track], previewContainer);
   });
 
   // When a Participant removes a Track, detach it from the DOM.
@@ -28658,10 +28662,16 @@ document.getElementById('button-preview').onclick = function() {
 
   localTracksPromise.then(function(tracks) {
     window.previewTracks = previewTracks = tracks;
-    var previewContainer = document.getElementById('local-media');
-    if (!previewContainer.querySelector('video')) {
-      attachTracks(tracks, previewContainer);
+    var previewContainer1 = document.getElementsByClassName('local-div1');
+    if (!previewContainer1.querySelector('video')) {
+      attachTracks(tracks, previewContainer1);
     }
+
+    var previewContainer2 = document.getElementsByClassName('local-div2');
+    if (!previewContainer2.querySelector('video')) {
+      attachTracks(tracks, previewContainer2);
+    }
+
   }, function(error) {
     console.error('Unable to access local media', error);
     log('Unable to access Camera and Microphone');
@@ -28681,5 +28691,16 @@ function leaveRoomIfJoined() {
     activeRoom.disconnect();
   }
 }
+
+function applyVideoInputDeviceSelection(deviceId, video) {
+  return Video.createLocalVideoTrack({
+    deviceId: deviceId,
+    height: 240,
+    width: 320
+  }).then(function(localTrack) {
+    localTrack.attach(video);
+  });
+}
+
 
 },{"twilio-video":67}]},{},[150]);

@@ -128,8 +128,8 @@ div#controls div#log p {
 }
 
 html, body { height: 100%; padding: 0; margin: 0; }
-#div1 { width: 50%; height: 100%; float: left; background: #DDD; }
-#div2 { width: 50%; height: 100%; float: left; background: #AAA; }
+#local-div1 { width: 50%; height: 100%; float: left; background: #DDD; }
+#local-div2 { width: 50%; height: 100%; float: left; background: #AAA; }
 
 .upper_right {
   position: absolute;
@@ -148,3 +148,10 @@ video {
   height:100%;
   width:100%;
 }
+
+.controls {
+  text-align: center;
+  padding: 0.5em 0;
+  background: #333e5a;
+}
+

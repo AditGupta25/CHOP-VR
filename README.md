@@ -59,8 +59,5 @@ chopKey
 SID
 SK93f88b019713453b7c0550af2fc99d73
 
-KEY TYPE
-Standard
-
 SECRET
 2Tb5c8cJEjpVQxuOe3vuthsaH3kSE3N6
