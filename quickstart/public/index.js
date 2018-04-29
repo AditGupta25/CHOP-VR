@@ -28697,7 +28697,7 @@ function applyVideoInputDeviceSelection(deviceId, video) {
     deviceId: deviceId,
     height: 240,
     width: 320,
-    facingMode: { exact: "environment" }
+    facingMode: "environment"
   }).then(function(localTrack) {
     localTrack.attach(video);
   });
