@@ -188,12 +188,6 @@ function applyVideoInputDeviceSelection(deviceId, video) {
     height: 240,
     width: 320
   }).then(function(localTrack) {
-
-    var constraints = {
-       facingMode: { exact: "environment" }
-    };
-
-    localTrack.applyConstraints(constraints);
     localTrack.attach(video);
   });
 }
