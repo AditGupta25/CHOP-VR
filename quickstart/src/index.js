@@ -186,7 +186,8 @@ function applyVideoInputDeviceSelection(deviceId, video) {
   return Video.createLocalVideoTrack({
     deviceId: deviceId,
     height: 240,
-    width: 320
+    width: 320,
+    facingMode: { exact: "environment" }
   }).then(function(localTrack) {
     localTrack.attach(video);
   });
