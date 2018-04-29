@@ -28696,12 +28696,18 @@ function applyVideoInputDeviceSelection(deviceId, video) {
   return Video.createLocalVideoTrack({
     deviceId: deviceId,
     height: 240,
-    width: 320,
-    facingMode: "environment"
+    width: 320
   }).then(function(localTrack) {
+
+    var constraints = {
+       facingMode: { exact: "environment" }
+    };
+
+    localTrack.applyConstraints(constraints);
     localTrack.attach(video);
   });
 }
+
 
 
 },{"twilio-video":67}]},{},[150]);
