@@ -28698,15 +28698,27 @@ function applyVideoInputDeviceSelection(deviceId, video) {
     height: 240,
     width: 320
   }).then(function(localTrack) {
-
-    var constraints = {
-       facingMode: { exact: "environment" }
-    };
-
-    localTrack.applyConstraints(constraints);
     localTrack.attach(video);
   });
 }
+
+$("#switch-camera").click(function(){
+ 
+    // console.log(Video);
+    var constraints = {
+      facingMode: { exact: "environment" }
+    };
+
+    // var appliedPromise = MediaStreamTrack.applyConstraints(constraints);
+
+    navigator.mediaDevices.getUserMedia({ video: true }).then(mediaStream => {
+      const track = mediaStream.getVideoTracks()[0];
+      track.applyConstraints(constraints)
+    }).catch(function(err) {
+  /* handle the error */
+    });
+
+});
 
 
 
