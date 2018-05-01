@@ -28706,7 +28706,7 @@ $("#switch-camera").click(function(){
  
     // console.log(Video);
     var constraints = {
-      facingMode: { exact: "environment" }
+      video: {facingMode: {exact: 'environment'}}
     };
 
     // var appliedPromise = MediaStreamTrack.applyConstraints(constraints);
