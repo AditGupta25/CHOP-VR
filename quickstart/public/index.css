@@ -133,7 +133,8 @@ html, body { height: 100%; padding: 0; margin: 0; }
 
 .upper_right {
   position: absolute;
-  top: 0%;
+  top: 50%;
+  /*vertical-align: middle;*/
   right: 0;
   background: #777; 
   height: 20%; 
