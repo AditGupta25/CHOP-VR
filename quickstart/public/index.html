@@ -24,7 +24,7 @@
     <!-- <div id="local-media"></div> -->
     <!-- <button id="button-preview">Preview My Camera</button> -->
     <select id="camera_selection" style="margin-top: 20px;">
-      <option value="volvo">Select Cameras</option>
+      <option value="null">Select Cameras</option>
     </select>
     <button id="switch-camera" style="color: red;">Switch Camera</button>
     <!-- Try to see if I can get constraints on click -->
@@ -44,7 +44,6 @@
 </html>
 
 <script type="text/javascript">
-
   navigator.mediaDevices.enumerateDevices()
   .then(function(devices) {
     for(var i=0; i<devices.length; i++){
@@ -60,26 +59,35 @@
     console.log(err.name + ": " + err.message);
   });
 
- 
-    // console.log("Video");
-    // alert("video");
-
-    // var constraints = {
-    //   video: {facingMode: {exact: 'environment'}}
-    // };
-
-    // var appliedPromise = MediaStreamTrack.applyConstraints(constraints);
-
-  //   navigator.mediaDevices.getUserMedia({ video: true }).then(mediaStream => {
-  //     const track = mediaStream.getVideoTracks()[0];
-  //     track.applyConstraints(constraints)
-  //   }).catch(function(err) {
-  // /* handle the error */
-  //   });
+ ;
 
 $("#switch-camera").click(function(){
-  alert("the deviceID is noticed!!");
+ 
+ // var selectedValue = $('#camera_selection option:selected').val();
+ // console.log(selectedValue);
+ 
+  // document.getElementById('flip-button').onclick = function() { front = !front; };
+
+  // var constraints = { video: { facingMode: (front? "user" : "environment") } };
+
+// Prefer camera resolution nearest to 1280x720.
+var constraints = { video: { facingMode: { exact: "environment" } }; 
+
+navigator.mediaDevices.getUserMedia(constraints)
+.then(function(mediaStream) {
+  var video = document.querySelector('video');
+  video.srcObject = mediaStream;
+  video.onloadedmetadata = function(e) {
+    video.play();
+  };
+})
+.catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
+
+
 });
+
+
+
 
 
 </script>
