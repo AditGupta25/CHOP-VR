@@ -62,26 +62,20 @@
  ;
 
 $("#switch-camera").click(function(){
+
+  alert("You Clicked A Button! This seems to not work right now :( ");
  
- // var selectedValue = $('#camera_selection option:selected').val();
- // console.log(selectedValue);
- 
-  // document.getElementById('flip-button').onclick = function() { front = !front; };
+//   var constraints = { video: { facingMode: { exact: "environment" } }; 
 
-  // var constraints = { video: { facingMode: (front? "user" : "environment") } };
-
-// Prefer camera resolution nearest to 1280x720.
-var constraints = { video: { facingMode: { exact: "environment" } }; 
-
-navigator.mediaDevices.getUserMedia(constraints)
-.then(function(mediaStream) {
-  var video = document.querySelector('video');
-  video.srcObject = mediaStream;
-  video.onloadedmetadata = function(e) {
-    video.play();
-  };
-})
-.catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
+//   navigator.mediaDevices.getUserMedia(constraints)
+//   .then(function(mediaStream) {
+//     var video = document.querySelector('video');
+//     video.srcObject = mediaStream;
+//     video.onloadedmetadata = function(e) {
+//       video.play();
+//     }
+//   })
+// .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
 
 
 });
