@@ -28654,29 +28654,6 @@ function roomJoined(room) {
   });
 }
 
-// Preview LocalParticipant's Tracks.
-document.getElementById('button-preview').onclick = function() {
-  var localTracksPromise = previewTracks
-    ? Promise.resolve(previewTracks)
-    : Video.createLocalTracks();
-
-  localTracksPromise.then(function(tracks) {
-    window.previewTracks = previewTracks = tracks;
-    var previewContainer1 = document.getElementsByClassName('local-div1');
-    if (!previewContainer1.querySelector('video')) {
-      attachTracks(tracks, previewContainer1);
-    }
-
-    var previewContainer2 = document.getElementsByClassName('local-div2');
-    if (!previewContainer2.querySelector('video')) {
-      attachTracks(tracks, previewContainer2);
-    }
-
-  }, function(error) {
-    console.error('Unable to access local media', error);
-    log('Unable to access Camera and Microphone');
-  });
-};
 
 // Activity log.
 function log(message) {
@@ -28702,23 +28679,40 @@ function applyVideoInputDeviceSelection(deviceId, video) {
   });
 }
 
-$("#switch-camera").click(function(){
+// $("#switch-camera").click(function(){
+//   navigator.mediaDevices.enumerateDevices()
+//   .then(function(devices) {
+//     for(var i=0; i<devices.length; i++){
+//     // console.log("there are: " + devices.length + " devices!");
+//       if(devices[i].kind == "videoinput"){
+//         var device_id = devices[i].deviceId.toString();
+//         var device_label = devices[i].label.toString();
+//         $('#camera_selection').append($('<option>', {value: device_id, text: device_label }));
+//       }
+//     }
+//   })
+//   .catch(function(err) {
+//     console.log(err.name + ": " + err.message);
+//   });
+
  
-    // console.log(Video);
-    var constraints = {
-      video: {facingMode: {exact: 'environment'}}
-    };
+//     // console.log("Video");
+//     // alert("video");
 
-    // var appliedPromise = MediaStreamTrack.applyConstraints(constraints);
+//     // var constraints = {
+//     //   video: {facingMode: {exact: 'environment'}}
+//     // };
 
-    navigator.mediaDevices.getUserMedia({ video: true }).then(mediaStream => {
-      const track = mediaStream.getVideoTracks()[0];
-      track.applyConstraints(constraints)
-    }).catch(function(err) {
-  /* handle the error */
-    });
+//     // var appliedPromise = MediaStreamTrack.applyConstraints(constraints);
 
-});
+//   //   navigator.mediaDevices.getUserMedia({ video: true }).then(mediaStream => {
+//   //     const track = mediaStream.getVideoTracks()[0];
+//   //     track.applyConstraints(constraints)
+//   //   }).catch(function(err) {
+//   // /* handle the error */
+//   //   });
+
+// });
 
 
 

@@ -22,7 +22,10 @@
   <div id="preview">
 <!--     <p class="instructions">Hello Beautiful</p>-->
     <!-- <div id="local-media"></div> -->
-    <button id="button-preview">Preview My Camera</button>
+    <!-- <button id="button-preview">Preview My Camera</button> -->
+    <select id="camera_selection" style="margin-top: 20px;">
+      <option value="volvo">Select Cameras</option>
+    </select>
     <button id="switch-camera" style="color: red;">Switch Camera</button>
     <!-- Try to see if I can get constraints on click -->
   </div>
@@ -39,5 +42,46 @@
 <script src="index.js"></script>
 </body>
 </html>
+
+<script type="text/javascript">
+
+  navigator.mediaDevices.enumerateDevices()
+  .then(function(devices) {
+    for(var i=0; i<devices.length; i++){
+    // console.log("there are: " + devices.length + " devices!");
+      if(devices[i].kind == "videoinput"){
+        var device_id = devices[i].deviceId.toString();
+        var device_label = devices[i].label.toString();
+        $('#camera_selection').append($('<option>', {value: device_id, text: device_label }));
+      }
+    }
+  })
+  .catch(function(err) {
+    console.log(err.name + ": " + err.message);
+  });
+
+ 
+    // console.log("Video");
+    // alert("video");
+
+    // var constraints = {
+    //   video: {facingMode: {exact: 'environment'}}
+    // };
+
+    // var appliedPromise = MediaStreamTrack.applyConstraints(constraints);
+
+  //   navigator.mediaDevices.getUserMedia({ video: true }).then(mediaStream => {
+  //     const track = mediaStream.getVideoTracks()[0];
+  //     track.applyConstraints(constraints)
+  //   }).catch(function(err) {
+  // /* handle the error */
+  //   });
+
+$("#switch-camera").click(function(){
+  alert("the deviceID is noticed!!");
+});
+
+
+</script>
 
 
