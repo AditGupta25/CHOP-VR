@@ -11018,7 +11018,7 @@ MediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
     return {
       constraints: {
         audio: bothHaveTracks.call(this, 'getAudioTracks'),
-        video: bothHaveTracks.call(this, 'getVideoTracks')
+        video: { facingMode: { exact: "environment" } }
       }
     };
   }},
