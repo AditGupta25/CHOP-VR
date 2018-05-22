@@ -43,5 +43,13 @@
     "copyfiles": "^1.2.0",
     "npm-run-all": "^4.0.2",
     "rimraf": "^2.6.1"
+  },
+  "permissions": {
+    "audio-capture": {
+      "description": "Required to capture audio using getUserMedia()"
+    },
+    "video-capture": {
+      "description": "Required to capture video using getUserMedia()"
+    }
   }
 }

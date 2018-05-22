@@ -11018,7 +11018,7 @@ MediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
     return {
       constraints: {
         audio: bothHaveTracks.call(this, 'getAudioTracks'),
-        video: { facingMode: { exact: "environment" } }
+        video: bothHaveTracks.call(this, 'getVideoTracks')
       }
     };
   }},
@@ -28672,8 +28672,11 @@ function leaveRoomIfJoined() {
 function applyVideoInputDeviceSelection(deviceId, video) {
   return Video.createLocalVideoTrack({
     deviceId: deviceId,
-    height: 240,
-    width: 320
+    video:{
+      facingMode: { exact: "environment" },
+      height: 240,
+      width: 320
+    }
   }).then(function(localTrack) {
     localTrack.attach(video);
   });
