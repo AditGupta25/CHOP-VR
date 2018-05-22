@@ -28671,12 +28671,10 @@ function leaveRoomIfJoined() {
 
 function applyVideoInputDeviceSelection(deviceId, video) {
   return Video.createLocalVideoTrack({
-    deviceId: deviceId,
-    video:{
-      facingMode: { exact: "environment" },
-      height: 240,
-      width: 320
-    }
+    // deviceId: deviceId,
+    facingMode: "environment",
+    height: 240,
+    width: 320
   }).then(function(localTrack) {
     localTrack.attach(video);
   });
