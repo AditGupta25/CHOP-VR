@@ -44,6 +44,8 @@
 </html>
 
 <script type="text/javascript">
+
+
   navigator.mediaDevices.enumerateDevices()
   .then(function(devices) {
     for(var i=0; i<devices.length; i++){
@@ -63,7 +65,14 @@
 
 $("#switch-camera").click(function(){
 
-  alert("You Clicked A Button! This seems to not work right now :( ");
+  var yourSelect = document.getElementById( "camera_selection" );
+  var theDeviceID =  yourSelect.options[ yourSelect.selectedIndex ].value;
+
+  Twilio.Video.createLocalVideoTrack();
+
+  // applyVideoInputDeviceSelection(theDeviceID,video);
+
+  // alert("You Clicked A Button! This seems to not work right now :( ");
  
 //   var constraints = { video: { facingMode: { exact: "environment" } }; 
 

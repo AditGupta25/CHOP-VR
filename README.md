@@ -1,4 +1,4 @@
-# Twilio Video Quickstart for JavaScript
+# Twilio AR/VR CHOP Application
 
 [![OS X/Linus Build Status](https://secure.travis-ci.org/twilio/video-quickstart-js.png?branch=master)](http://travis-ci.org/twilio/video-quickstart-js) [![Windows Build status](https://ci.appveyor.com/api/projects/status/3u69uy9c0lsap3dr?svg=true
 )](https://ci.appveyor.com/project/markandrus/video-quickstart-js)
@@ -41,23 +41,9 @@ the name of the room you want to join and click on 'Join Room'. Then,
 open another tab and join the same room. Now, you should see your own
 video in both the tabs!
 
-![screenshot of chat app](https://s3.amazonaws.com/com.twilio.prod.twilio-docs/images/video2.original.png)
 
 ## Examples
 
 The project contains some use-case examples for the Twilio Video JS SDK. After running the application
 by following the instructions above, go to [http://localhost:3000/examples](http://localhost:3000/examples)
 to try them out.
-
-
--------------------------------------
-Adit's Credentials
--------------------------------------
-FRIENDLY NAME
-chopKey
-
-SID
-SK93f88b019713453b7c0550af2fc99d73
-
-SECRET
-2Tb5c8cJEjpVQxuOe3vuthsaH3kSE3N6

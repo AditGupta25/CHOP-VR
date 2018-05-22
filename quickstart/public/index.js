@@ -28671,8 +28671,7 @@ function leaveRoomIfJoined() {
 
 function applyVideoInputDeviceSelection(deviceId, video) {
   return Video.createLocalVideoTrack({
-    // deviceId: deviceId,
-    facingMode: "environment",
+    deviceId: deviceId,
     height: 240,
     width: 320
   }).then(function(localTrack) {
