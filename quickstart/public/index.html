@@ -45,7 +45,7 @@
 
 <script type="text/javascript">
 
-
+/*
   navigator.mediaDevices.enumerateDevices()
   .then(function(devices) {
     for(var i=0; i<devices.length; i++){
@@ -60,15 +60,14 @@
   .catch(function(err) {
     console.log(err.name + ": " + err.message);
   });
+*/
 
- ;
+// $("#switch-camera").click(function(){
 
-$("#switch-camera").click(function(){
+//   var yourSelect = document.getElementById( "camera_selection" );
+//   var theDeviceID =  yourSelect.options[ yourSelect.selectedIndex ].value;
 
-  var yourSelect = document.getElementById( "camera_selection" );
-  var theDeviceID =  yourSelect.options[ yourSelect.selectedIndex ].value;
-
-  Twilio.Video.createLocalVideoTrack();
+//   Twilio.Video.createLocalVideoTrack();
 
   // applyVideoInputDeviceSelection(theDeviceID,video);
 
@@ -87,7 +86,7 @@ $("#switch-camera").click(function(){
 // .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
 
 
-});
+// });
 
 
 

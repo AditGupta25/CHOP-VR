@@ -3,7 +3,7 @@ module.exports={
   "_args": [
     [
       "@twilio/sip.js@0.7.7",
-      "/Users/Adit/Desktop/CHOP-VR"
+      "/Users/agupta310/Desktop/CHOP-VR"
     ]
   ],
   "_from": "@twilio/sip.js@0.7.7",
@@ -28,7 +28,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/@twilio/sip.js/-/sip.js-0.7.7.tgz",
   "_spec": "0.7.7",
-  "_where": "/Users/Adit/Desktop/CHOP-VR",
+  "_where": "/Users/agupta310/Desktop/CHOP-VR",
   "author": {
     "name": "OnSIP",
     "email": "developer@onsip.com",
@@ -14039,7 +14039,7 @@ module.exports={
   "_args": [
     [
       "@twilio/webrtc@2.0.0",
-      "/Users/Adit/Desktop/CHOP-VR"
+      "/Users/agupta310/Desktop/CHOP-VR"
     ]
   ],
   "_from": "@twilio/webrtc@2.0.0",
@@ -14064,7 +14064,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/@twilio/webrtc/-/webrtc-2.0.0.tgz",
   "_spec": "2.0.0",
-  "_where": "/Users/Adit/Desktop/CHOP-VR",
+  "_where": "/Users/agupta310/Desktop/CHOP-VR",
   "author": {
     "name": "Manjesh Malavalli",
     "email": "mmalavalli@twilio.com"
@@ -27713,7 +27713,7 @@ module.exports={
   "_args": [
     [
       "twilio-video@1.8.0",
-      "/Users/Adit/Desktop/CHOP-VR"
+      "/Users/agupta310/Desktop/CHOP-VR"
     ]
   ],
   "_from": "twilio-video@1.8.0",
@@ -27737,7 +27737,7 @@ module.exports={
   ],
   "_resolved": "https://registry.npmjs.org/twilio-video/-/twilio-video-1.8.0.tgz",
   "_spec": "1.8.0",
-  "_where": "/Users/Adit/Desktop/CHOP-VR",
+  "_where": "/Users/agupta310/Desktop/CHOP-VR",
   "author": {
     "name": "Mark Andrus Roberts",
     "email": "mroberts@twilio.com"
@@ -28679,21 +28679,90 @@ function applyVideoInputDeviceSelection(deviceId, video) {
   });
 }
 
-// $("#switch-camera").click(function(){
-//   navigator.mediaDevices.enumerateDevices()
-//   .then(function(devices) {
-//     for(var i=0; i<devices.length; i++){
-//     // console.log("there are: " + devices.length + " devices!");
-//       if(devices[i].kind == "videoinput"){
-//         var device_id = devices[i].deviceId.toString();
-//         var device_label = devices[i].label.toString();
-//         $('#camera_selection').append($('<option>', {value: device_id, text: device_label }));
-//       }
-//     }
-//   })
-//   .catch(function(err) {
-//     console.log(err.name + ": " + err.message);
-//   });
+
+
+// var currentStream;
+
+
+// function stopMediaTracks(previewTracks) {
+// previewTracks.getTracks().forEach(track => {
+//    track.stop();
+//  });
+// }
+
+// This is to populate the dropdown with items and devices that the camera has.
+navigator.mediaDevices.enumerateDevices()
+  .then(function(devices) {
+    for(var i=0; i<devices.length; i++){
+    // console.log("there are: " + devices.length + " devices!");
+
+      if(devices[i].kind == "videoinput"){
+        var device_id = devices[i].deviceId.toString();
+        var device_label = devices[i].label.toString();
+        $('#camera_selection').append($('<option>', {value: device_id, text: device_label }));
+      }
+    }
+  })
+  .catch(function(err) {
+    console.log(err.name + ": " + err.message);
+});
+
+
+
+$("#switch-camera").click(function(){
+  //Get the selected deviceID
+  var yourSelect = document.getElementById( "camera_selection" );
+  var theDeviceID =  yourSelect.options[ yourSelect.selectedIndex ].value;
+
+  if (theDeviceID.toString()== "null"){
+    alert("Please Select a Valid Video Device!");
+  } 
+  else{
+  //Add the current Device ID to the localTrack
+
+   //  var constraints = {
+   //    video: {facingMode: {exact: 'environment'}},
+   //    audio: false
+   //  };
+
+   // navigator.mediaDevices
+   //  .getUserMedia(constraints)
+   //  .then(stream => {
+   //    currentStream = stream;
+   //  })
+   //  .catch(error => {
+   //    console.error(error);
+   //  });
+
+
+  return Video.createLocalVideoTrack({
+    video: { deviceId: { exact: theDeviceID }}
+  }).then(function(localTrack) {
+    // stopMediaTracks(currentStream);
+    activeRoom.localParticipant.addTrack(localTrack);
+  });
+
+  }
+});
+
+
+  // navigator.mediaDevices.enumerateDevices()
+  // .then(function(devices) {
+  //   for(var i=0; i<devices.length; i++){
+  //   // console.log("there are: " + devices.length + " devices!");
+  //     if(devices[i].kind == "videoinput"){
+  //       var device_id = devices[i].deviceId.toString();
+  //       var device_label = devices[i].label.toString();
+  //       // $('#camera_selection').append($('<option>', {value: device_id, text: device_label }));
+
+  //        var yourSelect = document.getElementById( "camera_selection" );
+  //        var theDeviceID =  yourSelect.options[ yourSelect.selectedIndex ].value;
+  //     }
+  //   }
+  // })
+  // .catch(function(err) {
+  //   console.log(err.name + ": " + err.message);
+  // });
 
  
 //     // console.log("Video");
