@@ -226,14 +226,21 @@ $("#switch-camera").click(function(){
 
 
   return Video.createLocalVideoTrack({
-    video: { deviceId: { exact: theDeviceID }}
+    video: { 
+      deviceId: { exact: theDeviceID },
+      facingMode: {exact: 'environment'}
+    }
   }).then(function(localTrack) {
     // stopMediaTracks(currentStream);
+    // console.log(activeRoom.localParticipant)
     activeRoom.localParticipant.addTrack(localTrack);
   });
 
   }
 });
+
+var stop = stream => stream.getTracks().forEach(track => track.stop());
+
 
 
   // navigator.mediaDevices.enumerateDevices()
