@@ -3,10 +3,15 @@
 <head>
   <title>CHOP Telemed</title>
   <link rel="stylesheet" href="index.css">
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+  <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <script src="index.js"></script>
 </head>
 <body>
+ 
 
 <div id="local-div1" class="local-media">
   <!-- <div id="upper_right"> -->
@@ -32,65 +37,24 @@
   <div id="room-controls">
     <p class="instructions">Room Name:</p>
     <input id="room-name" type="text" placeholder="Enter a room name" />
-    <button id="button-join">Join Room</button>
-    <button id="button-leave">Leave Room</button>
+    <button id="button-join" style="color: red;">Join Room</button>
+    <button id="button-leave" style="color: red;">Leave Room</button>
   </div>
   <div id="log"></div>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="index.js"></script>
 </body>
 </html>
 
+
 <script type="text/javascript">
 
-/*
-  navigator.mediaDevices.enumerateDevices()
-  .then(function(devices) {
-    for(var i=0; i<devices.length; i++){
-    // console.log("there are: " + devices.length + " devices!");
-      if(devices[i].kind == "videoinput"){
-        var device_id = devices[i].deviceId.toString();
-        var device_label = devices[i].label.toString();
-        $('#camera_selection').append($('<option>', {value: device_id, text: device_label }));
-      }
-    }
-  })
-  .catch(function(err) {
-    console.log(err.name + ": " + err.message);
-  });
-*/
-
-// $("#switch-camera").click(function(){
-
-//   var yourSelect = document.getElementById( "camera_selection" );
-//   var theDeviceID =  yourSelect.options[ yourSelect.selectedIndex ].value;
-
-//   Twilio.Video.createLocalVideoTrack();
-
-  // applyVideoInputDeviceSelection(theDeviceID,video);
-
-  // alert("You Clicked A Button! This seems to not work right now :( ");
- 
-//   var constraints = { video: { facingMode: { exact: "environment" } }; 
-
-//   navigator.mediaDevices.getUserMedia(constraints)
-//   .then(function(mediaStream) {
-//     var video = document.querySelector('video');
-//     video.srcObject = mediaStream;
-//     video.onloadedmetadata = function(e) {
-//       video.play();
-//     }
-//   })
-// .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
-
-
-// });
-
-
-
-
+    $(document).ready(function() {
+      // Initialize the plugin
+      $('#my_popup').popup({
+        transition: 'all 0.3s'
+      });
+    });
 
 </script>
 

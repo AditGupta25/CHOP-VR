@@ -156,5 +156,11 @@ video {
   background: #333e5a;
 }
 
+#my_popup {
+  transform: scale(0.8);
+}
+.popup_visible #my_popup {
+  transform: scale(1);
+}
 
 
