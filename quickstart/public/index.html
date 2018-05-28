@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
   <title>CHOP Telemed</title>
@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
-  <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   <script src="index.js"></script>
 </head>
@@ -14,8 +13,6 @@
  
 
 <div id="local-div1" class="local-media">
-  <!-- <div id="upper_right"> -->
-  <!-- </div> -->
 </div>
 
 <div id="local-div2" class="local-media">
@@ -23,39 +20,51 @@
 </div>
 
 <!-- <div id="remote-media"></div> -->
-<div id="controls">
-  <div id="preview">
-<!--     <p class="instructions">Hello Beautiful</p>-->
-    <!-- <div id="local-media"></div> -->
-    <!-- <button id="button-preview">Preview My Camera</button> -->
-    <select id="camera_selection" style="margin-top: 20px;">
-      <option value="null">Select Cameras</option>
-    </select>
-    <button id="switch-camera" style="color: red;">Switch Camera</button>
-    <!-- Try to see if I can get constraints on click -->
-  </div>
-  <div id="room-controls">
-    <p class="instructions">Room Name:</p>
-    <input id="room-name" type="text" placeholder="Enter a room name" />
-    <button id="button-join" style="color: red;">Join Room</button>
-    <button id="button-leave" style="color: red;">Leave Room</button>
-  </div>
-  <div id="log"></div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">  
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">CHOP Telemed Control Panel</h4>
+        </div>
+
+        <div class="modal-body">
+
+            <h4>User Type Selection:</h4>
+            <p>There will be a radio button here! That the user can select if they are a doctor or patient</p>
+
+          <div>
+            <h4>Device Selection:</h4>
+            <select id="camera_selection">
+              <option value="null">Select Cameras</option>
+            </select>
+            <button id="switch-camera" style="color: red;">Switch Camera</button>
+          </div>
+
+          <div id="room-controls">
+            <h4>Room Name:</h4>
+            <input id="room-name" type="text" placeholder="Enter a room name" />
+              <button id="button-join" style="color: red;">Join Room</button>
+              <button id="button-leave" style="color: red;">Leave Room</button>
+          </div>
+
+          <div id="log"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
 </div>
 
+<div class="footer">
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open VR Conference Control Panel</button>
+</div>
 </body>
-</html>
 
-
-<script type="text/javascript">
-
-    $(document).ready(function() {
-      // Initialize the plugin
-      $('#my_popup').popup({
-        transition: 'all 0.3s'
-      });
-    });
-
-</script>
 
 
