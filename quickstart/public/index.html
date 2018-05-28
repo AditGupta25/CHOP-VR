@@ -7,6 +7,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   <script src="index.js"></script>
 </head>
 <body>
@@ -31,11 +33,15 @@
         </div>
 
         <div class="modal-body">
-
             <h4>User Type Selection:</h4>
-            <p>There will be a radio button here! That the user can select if they are a doctor or patient</p>
-
-          <div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" checked data-toggle="toggle" data-on="Doctor" data-off="Patient" data-onstyle="info" data-offstyle="warning" data-width="125">
+                <button type="button" class="btn btn-primary">Submit!</button>
+              </label>
+            </div>
+          
+          <div class="device-select">
             <h4>Device Selection:</h4>
             <select id="camera_selection">
               <option value="null">Select Cameras</option>
