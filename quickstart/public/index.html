@@ -30,24 +30,18 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">CHOP Telemed Control Panel</h4>
+          <div id="console-event"></div>
         </div>
 
         <div class="modal-body">
             <h4>User Type Selection:</h4>
             <div class="checkbox">
               <label>
-                <input type="checkbox" checked data-toggle="toggle" data-on="Doctor" data-off="Patient" data-onstyle="info" data-offstyle="warning" data-width="125">
-                <button type="button" class="btn btn-primary">Submit!</button>
+                <input id="toggleForm" type="checkbox" checked data-toggle="toggle" data-off="Doctor" data-on="Patient" data-onstyle="info" data-offstyle="warning" data-width="125">
+                <button onclick="submitButton()" type="button" class="btn btn-primary">Submit!</button>
               </label>
             </div>
-          
-          <div class="device-select">
-            <h4>Device Selection:</h4>
-            <select id="camera_selection">
-              <option value="null">Select Cameras</option>
-            </select>
-            <button id="switch-camera" style="color: red;">Switch Camera</button>
-          </div>
+
 
           <div id="room-controls">
             <h4>Room Name:</h4>
@@ -55,8 +49,19 @@
               <button id="button-join" style="color: red;">Join Room</button>
               <button id="button-leave" style="color: red;">Leave Room</button>
           </div>
+          
+          <div class="device-select">
+            <h4>Change Device:</h4>
+            <select id="camera_selection">
+              <option value="null">Select Cameras</option>
+            </select>
+            <button id="switch-camera" style="color: red;">Switch Camera</button>
+          </div>
 
           <div id="log"></div>
+
+          <div id="overlay"></div>
+
         </div>
 
         <div class="modal-footer">
@@ -73,4 +78,19 @@
 </body>
 
 
+<script type="text/javascript">
 
+  var currentToggle = "true";
+
+  function submitButton(){
+    $("#overlay").hide();
+    console.log(currentToggle);
+  }
+
+  $(function() {
+    $('#toggleForm').change(function() {
+      currentToggle = '' + $(this).prop('checked');
+    })
+  })
+
+</script>

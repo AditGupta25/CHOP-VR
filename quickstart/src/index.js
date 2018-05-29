@@ -161,6 +161,7 @@ function leaveRoomIfJoined() {
 
 function applyVideoInputDeviceSelection(deviceId, video) {
   return Video.createLocalVideoTrack({
+    facingMode: "environment",
     deviceId: deviceId,
     height: 240,
     width: 320
@@ -181,103 +182,143 @@ function applyVideoInputDeviceSelection(deviceId, video) {
 // }
 
 // This is to populate the dropdown with items and devices that the camera has.
-navigator.mediaDevices.enumerateDevices()
-  .then(function(devices) {
-    for(var i=0; i<devices.length; i++){
-    // console.log("there are: " + devices.length + " devices!");
+// navigator.mediaDevices.enumerateDevices()
+//   .then(function(devices) {
+//     for(var i=0; i<devices.length; i++){
+//     // console.log("there are: " + devices.length + " devices!");
 
-      if(devices[i].kind == "videoinput"){
-        var device_id = devices[i].deviceId.toString();
-        var device_label = devices[i].label.toString();
-        $('#camera_selection').append($('<option>', {value: device_id, text: device_label }));
-      }
-    }
-  })
-  .catch(function(err) {
-    console.log(err.name + ": " + err.message);
-});
-
-
-
-$("#switch-camera").click(function(){
-  //Get the selected deviceID
-  var yourSelect = document.getElementById( "camera_selection" );
-  var theDeviceID =  yourSelect.options[ yourSelect.selectedIndex ].value;
-
-  if (theDeviceID.toString()== "null"){
-    alert("Please Select a Valid Video Device!");
-  } 
-  else{
-  //Add the current Device ID to the localTrack
-
-   //  var constraints = {
-   //    video: {facingMode: {exact: 'environment'}},
-   //    audio: false
-   //  };
-
-   // navigator.mediaDevices
-   //  .getUserMedia(constraints)
-   //  .then(stream => {
-   //    currentStream = stream;
-   //  })
-   //  .catch(error => {
-   //    console.error(error);
-   //  });
-
-
-  return Video.createLocalVideoTrack({
-    video: { 
-      deviceId: { exact: theDeviceID },
-      facingMode: {exact: 'environment'}
-    }
-  }).then(function(localTrack) {
-    // stopMediaTracks(currentStream);
-    // console.log(activeRoom.localParticipant)
-    activeRoom.localParticipant.addTrack(localTrack);
-  });
-
-  }
-});
-
-var stop = stream => stream.getTracks().forEach(track => track.stop());
-
-
-
-  // navigator.mediaDevices.enumerateDevices()
-  // .then(function(devices) {
-  //   for(var i=0; i<devices.length; i++){
-  //   // console.log("there are: " + devices.length + " devices!");
-  //     if(devices[i].kind == "videoinput"){
-  //       var device_id = devices[i].deviceId.toString();
-  //       var device_label = devices[i].label.toString();
-  //       // $('#camera_selection').append($('<option>', {value: device_id, text: device_label }));
-
-  //        var yourSelect = document.getElementById( "camera_selection" );
-  //        var theDeviceID =  yourSelect.options[ yourSelect.selectedIndex ].value;
-  //     }
-  //   }
-  // })
-  // .catch(function(err) {
-  //   console.log(err.name + ": " + err.message);
-  // });
-
- 
-//     // console.log("Video");
-//     // alert("video");
-
-//     // var constraints = {
-//     //   video: {facingMode: {exact: 'environment'}}
-//     // };
-
-//     // var appliedPromise = MediaStreamTrack.applyConstraints(constraints);
-
-//   //   navigator.mediaDevices.getUserMedia({ video: true }).then(mediaStream => {
-//   //     const track = mediaStream.getVideoTracks()[0];
-//   //     track.applyConstraints(constraints)
-//   //   }).catch(function(err) {
-//   // /* handle the error */
-//   //   });
-
+//       if(devices[i].kind == "videoinput"){
+//         var device_id = devices[i].deviceId.toString();
+//         var device_label = devices[i].label.toString();
+//         $('#camera_selection').append($('<option>', {value: device_id, text: device_label }));
+//       }
+//     }
+//   })
+//   .catch(function(err) {
+//     console.log(err.name + ": " + err.message);
 // });
 
+
+let currentStream;
+
+
+function stopMediaTracks(stream) {
+  stream.getTracks().forEach(track => {
+    track.stop();
+  });
+}
+
+
+$(document).ready(function() {
+  $("#switch-camera").click(function(){
+    //Get the selected deviceID
+    var select = document.getElementById( "camera_selection" );
+    var theDeviceID =  select.options[ select.selectedIndex ].value;
+
+    if (theDeviceID.toString()== ""){
+      alert("Please Select a Valid Video Device!");
+    } 
+    else{
+    //Add the current Device ID to the localTrack
+      if (typeof currentStream !== 'undefined') {
+        stopMediaTracks(currentStream);
+      }
+      const videoConstraints = {};
+      if (select.value === '') {
+        videoConstraints.facingMode = 'environment';
+      } else {
+        videoConstraints.deviceId = { exact: select.value };
+      }
+      const constraints = {
+        video: videoConstraints,
+        audio: false
+      };
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then(stream => {
+          currentStream = stream;
+          console.log(currentStream);
+
+          //----------------------------------------------
+          // NEED TO ATTACH CURRENT STREAM TO CALL SOMEHOW
+          //----------------------------------------------
+
+          // video.srcObject = stream;
+          return navigator.mediaDevices.enumerateDevices();
+        })
+        .then(gotDevices)
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  });
+});
+
+
+
+function gotDevices(mediaDevices) {
+  var select = document.getElementById( "camera_selection" );
+  select.innerHTML = '';
+  select.appendChild(document.createElement('option'));
+  let count = 1;
+  mediaDevices.forEach(mediaDevice => {
+    if (mediaDevice.kind === 'videoinput') {
+      const option = document.createElement('option');
+      option.value = mediaDevice.deviceId;
+      const label = mediaDevice.label || `Camera ${count++}`;
+      const textNode = document.createTextNode(label);
+      option.appendChild(textNode);
+      select.appendChild(option);
+    }
+  });
+}
+
+navigator.mediaDevices.enumerateDevices().then(gotDevices);
+
+
+
+
+// $("#switch-camera").click(function(){
+//   //Get the selected deviceID
+//   var yourSelect = document.getElementById( "camera_selection" );
+//   var theDeviceID =  yourSelect.options[ yourSelect.selectedIndex ].value;
+
+//   if (theDeviceID.toString()== "null"){
+//     alert("Please Select a Valid Video Device!");
+//   } 
+//   else{
+//   //Add the current Device ID to the localTrack
+
+//   if (typeof currentStream !== 'undefined') {
+//     stopMediaTracks(currentStream);
+//   }
+
+//    //  var constraints = {
+//    //    video: {facingMode: {exact: 'environment'}},
+//    //    audio: false
+//    //  };
+
+//    // navigator.mediaDevices
+//    //  .getUserMedia(constraints)
+//    //  .then(stream => {
+//    //    currentStream = stream;
+//    //  })
+//    //  .catch(error => {
+//    //    console.error(error);
+//    //  });
+
+
+//   return Video.createLocalVideoTrack({
+//     video: { 
+//       deviceId: { exact: theDeviceID },
+//       facingMode: {exact: 'environment'}
+//     }
+//   }).then(function(localTrack) {
+//     // stopMediaTracks(currentStream);
+//     // console.log(activeRoom.localParticipant)
+//     activeRoom.localParticipant.addTrack(localTrack);
+//   });
+
+//   }
+// });
 

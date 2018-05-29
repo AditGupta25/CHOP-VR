@@ -119,4 +119,16 @@ video {
   margin-top: 30px;
 }
 
+#overlay {
+  display: show;
+  position: absolute;
+  background-color: gray;
+  top: 110px;
+  left: 0px;
+  bottom:0px;
+  right: 0px;
+  padding: 10px;
+  opacity: .8;
+}
+
 
