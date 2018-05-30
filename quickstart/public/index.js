@@ -28613,6 +28613,7 @@ function updateVideoDevice(event) {
       var tracks = Array.from(localParticipant.videoTracks.values());
       localParticipant.unpublishTracks(tracks);
       localParticipant.publishTrack(localVideoTrack);
+
       roomJoined(activeRoom);
       });
   
@@ -28649,12 +28650,11 @@ function roomJoined(room) {
   }
 
 
-
   // Attach the Tracks of the Room's Participants.
   room.participants.forEach(function(participant) {
     log("Already in Room: '" + participant.identity + "'");
-    var previewContainer = document.getElementById('remote-media');
-    attachParticipantTracks(participant, previewContainer);
+    var remoteCameraContainer = document.getElementById('remote-media');
+    attachParticipantTracks(participant, remoteCameraContainer);
   });
 
   // When a Participant joins the Room, log the event.
@@ -28665,8 +28665,8 @@ function roomJoined(room) {
   // When a Participant adds a Track, attach it to the DOM.
   room.on('trackAdded', function(track, participant) {
     log(participant.identity + " added track: " + track.kind);
-    var previewContainer = document.getElementById('remote-media');
-    attachTracks([track], previewContainer);
+    var remoteCameraContainer2 = document.getElementById('remote-media');
+    attachTracks([track], remoteCameraContainer2);
   });
 
   // When a Participant removes a Track, detach it from the DOM.

@@ -65,7 +65,7 @@ html, body { height: 100%; padding: 0; margin: 0; }
 
 .upper_right {
   position: absolute;
-  top: 45%;
+  top: 35%;
   /*vertical-align: middle;*/
   right: 0;
   background: #777; 
