@@ -142,10 +142,15 @@ function roomJoined(room) {
 
   // Attach the Tracks of the Room's Participants.
   room.participants.forEach(function(participant) {
-    log("Already in Room: '" + participant.identity + "'");
-    var remoteCameraContainer = document.getElementById('remote-media');
+  log("Already in Room: '" + participant.identity + "'");
+  var remoteCameraContainer = document.getElementById('remote-media');
+    if (!remoteCameraContainer.querySelector('video')) {
+    attachParticipantTracks(activeRoom.localParticipant, remoteCameraContainer);
+    }else{
+    remoteCameraContainer.querySelector('video').remove();
     attachParticipantTracks(participant, remoteCameraContainer);
-  });
+    }
+   });
 
   // When a Participant joins the Room, log the event.
   room.on('participantConnected', function(participant) {
