@@ -145,7 +145,7 @@ function roomJoined(room) {
   log("Already in Room: '" + participant.identity + "'");
   var remoteCameraContainer = document.getElementById('remote-media');
     if (!remoteCameraContainer.querySelector('video')) {
-    attachParticipantTracks(activeRoom.localParticipant, remoteCameraContainer);
+    attachParticipantTracks(participant, remoteCameraContainer);
     }else{
     remoteCameraContainer.querySelector('video').remove();
     attachParticipantTracks(participant, remoteCameraContainer);
