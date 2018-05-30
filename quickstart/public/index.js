@@ -28587,16 +28587,16 @@ $.getJSON('/token', function(data) {
 });
 
 function gotDevices(mediaDevices) {
-  var select = document.getElementById( "camera_selection" );
+  var select = document.getElementById( "video-devices" );
   select.innerHTML = '';
   select.appendChild(document.createElement('option'));
   let count = 1;
   mediaDevices.forEach(mediaDevice => {
     if (mediaDevice.kind === 'videoinput') {
-      const option = document.createElement('option');
+      var option = document.createElement('option');
       option.value = mediaDevice.deviceId;
-      const label = mediaDevice.label || `Camera ${count++}`;
-      const textNode = document.createTextNode(label);
+      var label = mediaDevice.label || `Camera ${count++}`;
+      var textNode = document.createTextNode(label);
       option.appendChild(textNode);
       select.appendChild(option);
     }
@@ -28604,16 +28604,45 @@ function gotDevices(mediaDevices) {
 }
 
 function updateVideoDevice(event) {
-  const select = document.getElementById('video-devices');
-  const localParticipant = room.localParticipant;
+  var select = document.getElementById('video-devices');
+  var localParticipant = room.localParticipant;
   if (select.value !== '') {
     Video.createLocalVideoTrack({
       deviceId: { exact: select.value }
     }).then(function(localVideoTrack) {
-      const tracks = Array.from(localParticipant.videoTracks.values());
+      var tracks = Array.from(localParticipant.videoTracks.values());
       localParticipant.unpublishTracks(tracks);
       localParticipant.publishTrack(localVideoTrack);
-    });
+
+      var previewContainer1 = document.getElementById('local-div1');
+      if (!previewContainer1.querySelector('video')) {
+        attachParticipantTracks(activeRoom.localParticipant, previewContainer1);
+      }else{
+        previewContainer1.querySelector('video').remove();
+        attachParticipantTracks(activeRoom.localParticipant, previewContainer1);
+      }
+
+      var previewContainer2 = document.getElementById('local-div2');
+      if (!previewContainer2.querySelector('video')) {
+        attachParticipantTracks(activeRoom.localParticipant, previewContainer2);
+      }else{
+        previewContainer2.querySelector('video').remove();
+        attachParticipantTracks(activeRoom.localParticipant, previewContainer2);
+      }
+      });
+
+  activeRoom.localParticipant.on('trackAdded', function(track) {
+    log(room.localParticipant.identity + " added track: " + track.kind);
+    var previewContainer1 = document.getElementById('local-div1');
+    attachTracks([track], previewContainer1);
+  })
+
+  activeRoom.localParticipant.on('trackAdded', function(track) {
+    log(room.localParticipant.identity + " added track: " + track.kind);
+    var previewContainer2 = document.getElementById('local-div2');
+    attachTracks([track], previewContainer2);
+  })
+  
   }
 }
 
@@ -28632,13 +28661,20 @@ function roomJoined(room) {
   // Attach LocalParticipant's Tracks, if not already attached.
   var previewContainer1 = document.getElementById('local-div1');
   if (!previewContainer1.querySelector('video')) {
-    attachParticipantTracks(room.localParticipant, previewContainer1);
+    attachParticipantTracks(activeRoom.localParticipant, previewContainer1);
+  }else{
+    previewContainer1.querySelector('video').remove();
+    attachParticipantTracks(activeRoom.localParticipant, previewContainer1);
   }
 
   var previewContainer2 = document.getElementById('local-div2');
   if (!previewContainer2.querySelector('video')) {
-    attachParticipantTracks(room.localParticipant, previewContainer2);
+    attachParticipantTracks(activeRoom.localParticipant, previewContainer2);
+  }else{
+    previewContainer2.querySelector('video').remove();
+    attachParticipantTracks(activeRoom.localParticipant, previewContainer2);
   }
+
 
 
   // Attach the Tracks of the Room's Participants.
@@ -28673,14 +28709,20 @@ function roomJoined(room) {
 
   room.localParticipant.on('trackAdded', function(track) {
     log(room.localParticipant.identity + " added track: " + track.kind);
-    var previewContainer = document.getElementById('local-media');
-    attachTracks([track], previewContainer);
+    var previewContainer1 = document.getElementById('local-div1');
+    attachTracks([track], previewContainer1);
+  })
+
+  room.localParticipant.on('trackAdded', function(track) {
+    log(room.localParticipant.identity + " added track: " + track.kind);
+    var previewContainer2 = document.getElementById('local-div2');
+    attachTracks([track], previewContainer2);
   })
 
   // When a Participant leaves the Room, detach its Tracks.
   room.on('participantDisconnected', function(participant) {
     log("Participant '" + participant.identity + "' left the room");
-    detachParticipantTracks(participant);
+    detachParticipantTracks(participant2);
   });
 
   // Once the LocalParticipant leaves the room, detach the Tracks
