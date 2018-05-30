@@ -28613,7 +28613,7 @@ function updateVideoDevice(event) {
       var tracks = Array.from(localParticipant.videoTracks.values());
       localParticipant.unpublishTracks(tracks);
       localParticipant.publishTrack(localVideoTrack);
-      // roomJoined(activeRoom);
+      roomJoined(activeRoom);
       });
   
   }
