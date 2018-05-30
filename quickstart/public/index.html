@@ -10,6 +10,9 @@
   <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
   <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   <script src="index.js"></script>
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
  
@@ -35,10 +38,13 @@
         <div class="modal-body">
             <h4>User Type Selection:</h4>
             <div class="checkbox">
-              <label>
+              
                 <input id="toggleForm" type="checkbox" checked data-toggle="toggle" data-off="Doctor" data-on="Patient" data-onstyle="info" data-offstyle="warning" data-width="125">
-                <button onclick="submitButton()" type="button" class="btn btn-primary">Submit!</button>
-              </label>
+
+                <input id="userName" type="text" aria-label="Default" placeholder="Enter Name" style="margin-left: 10px; margin-right: 10px; line-height: 2.2em; width: 90px;">
+
+
+                <button id="submitButton" type="button" class="btn btn-primary">Submit!</button>
             </div>
 
           <div id="room-controls">
@@ -73,20 +79,3 @@
 </div>
 </body>
 
-
-<script type="text/javascript">
-
-  var currentToggle = "true";
-
-  function submitButton(){
-    $("#overlay").hide();
-    console.log(currentToggle);
-  }
-
-  $(function() {
-    $('#toggleForm').change(function() {
-      currentToggle = '' + $(this).prop('checked');
-    })
-  })
-
-</script>

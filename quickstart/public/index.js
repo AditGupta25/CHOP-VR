@@ -28551,7 +28551,7 @@ window.addEventListener('beforeunload', leaveRoomIfJoined);
 
 // Obtain a token from the server in order to connect to the Room.
 $.getJSON('/token', function(data) {
-  identity = data.identity;
+  // identity = data.identity;
   document.getElementById('room-controls').style.display = 'block';
 
   // Bind button to join Room.
@@ -28652,10 +28652,15 @@ function roomJoined(room) {
 
   // Attach the Tracks of the Room's Participants.
   room.participants.forEach(function(participant) {
-    log("Already in Room: '" + participant.identity + "'");
-    var remoteCameraContainer = document.getElementById('remote-media');
+  log("Already in Room: '" + participant.identity + "'");
+  var remoteCameraContainer = document.getElementById('remote-media');
+    if (!remoteCameraContainer.querySelector('video')) {
     attachParticipantTracks(participant, remoteCameraContainer);
-  });
+    }else{
+    remoteCameraContainer.querySelector('video').remove();
+    attachParticipantTracks(participant, remoteCameraContainer);
+    }
+   });
 
   // When a Participant joins the Room, log the event.
   room.on('participantConnected', function(participant) {
@@ -28731,144 +28736,51 @@ function leaveRoomIfJoined() {
   }
 }
 
-// function applyVideoInputDeviceSelection(deviceId, video) {
-//   return Video.createLocalVideoTrack({
-//     facingMode: "environment",
-//     deviceId: deviceId,
-//     height: 240,
-//     width: 320
-//   }).then(function(localTrack) {
-//     localTrack.attach(video);
-//   });
-// }
 
 
+//Actions and functionality for control panel
 
-// var currentStream;
+  var currentToggle = "true";
 
+  $(function() {
+    $('#toggleForm').change(function() {
+      currentToggle = '' + $(this).prop('checked');
+    })
+  });
 
-// function stopMediaTracks(previewTracks) {
-// previewTracks.getTracks().forEach(track => {
-//    track.stop();
-//  });
-// }
+  $(function() {
+    $( "#submitButton" ).click(function() {
+        console.log(currentToggle);
+        if(currentToggle == "true"){
+          //true indicats Patient
+          identity = $('#userName').val().toString();
+          if(identity == ''){
+            alert("Please Enter a Name!")
+          }else{
+            $("#overlay").hide();
+            // console.log(identity);
+            setPatientSettings(identity);
+          } 
 
-// This is to populate the dropdown with items and devices that the camera has.
-// navigator.mediaDevices.enumerateDevices()
-//   .then(function(devices) {
-//     for(var i=0; i<devices.length; i++){
-//     // console.log("there are: " + devices.length + " devices!");
+        }else{
+          //false indicates Doctor 
+          identity = $('#userName').val().toString();
+          if(identity == ''){
+            alert("Please Enter a Name!")
+          }else{
+            $("#overlay").hide();
+            // console.log(identity);
+            setDoctorSettings(identity);
+          } 
+        }
+      });
+    });
 
-//       if(devices[i].kind == "videoinput"){
-//         var device_id = devices[i].deviceId.toString();
-//         var device_label = devices[i].label.toString();
-//         $('#camera_selection').append($('<option>', {value: device_id, text: device_label }));
-//       }
-//     }
-//   })
-//   .catch(function(err) {
-//     console.log(err.name + ": " + err.message);
-// });
+  function setPatientSettings(name){
 
+  }
 
-// let currentStream;
-
-
-// function stopMediaTracks(stream) {
-//   stream.getTracks().forEach(track => {
-//     track.stop();
-//   });
-// }
-
-
-// $(document).ready(function() {
-//   $("#switch-camera").click(function(){
-//     //Get the selected deviceID
-//     var select = document.getElementById( "camera_selection" );
-//     var theDeviceID =  select.options[ select.selectedIndex ].value;
-
-//     if (theDeviceID.toString()== ""){
-//       alert("Please Select a Valid Video Device!");
-//     } 
-//     else{
-//     //Add the current Device ID to the localTrack
-//       if (typeof currentStream !== 'undefined') {
-//         stopMediaTracks(currentStream);
-//       }
-//       const videoConstraints = {};
-//       if (select.value === '') {
-//         videoConstraints.facingMode = 'environment';
-//       } else {
-//         videoConstraints.deviceId = { exact: select.value };
-//       }
-//       const constraints = {
-//         video: videoConstraints,
-//         audio: false
-//       };
-//       navigator.mediaDevices
-//         .getUserMedia(constraints)
-//         .then(stream => {
-//           currentStream = stream;
-//           console.log(currentStream);
-
-//           //----------------------------------------------
-//           // NEED TO ATTACH CURRENT STREAM TO CALL SOMEHOW
-//           //----------------------------------------------
-
-//           // video.srcObject = stream;
-//           return navigator.mediaDevices.enumerateDevices();
-//         })
-//         .then(gotDevices)
-//         .catch(error => {
-//           console.error(error);
-//         });
-//     }
-//   });
-// });
-
-
-
-// $("#switch-camera").click(function(){
-//   //Get the selected deviceID
-//   var yourSelect = document.getElementById( "camera_selection" );
-//   var theDeviceID =  yourSelect.options[ yourSelect.selectedIndex ].value;
-
-//   if (theDeviceID.toString()== "null"){
-//     alert("Please Select a Valid Video Device!");
-//   } 
-//   else{
-//   //Add the current Device ID to the localTrack
-
-//   if (typeof currentStream !== 'undefined') {
-//     stopMediaTracks(currentStream);
-//   }
-
-//    //  var constraints = {
-//    //    video: {facingMode: {exact: 'environment'}},
-//    //    audio: false
-//    //  };
-
-//    // navigator.mediaDevices
-//    //  .getUserMedia(constraints)
-//    //  .then(stream => {
-//    //    currentStream = stream;
-//    //  })
-//    //  .catch(error => {
-//    //    console.error(error);
-//    //  });
-
-
-//   return Video.createLocalVideoTrack({
-//     video: { 
-//       deviceId: { exact: theDeviceID },
-//       facingMode: {exact: 'environment'}
-//     }
-//   }).then(function(localTrack) {
-//     // stopMediaTracks(currentStream);
-//     // console.log(activeRoom.localParticipant)
-//     activeRoom.localParticipant.addTrack(localTrack);
-//   });
-
-//   }
-// });
+  function setDoctorSettings(name){
+    
+  }
 },{"twilio-video":67}]},{},[150]);
