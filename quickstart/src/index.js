@@ -76,9 +76,44 @@ $.getJSON('/token', function(data) {
   };
 });
 
+function gotDevices(mediaDevices) {
+  var select = document.getElementById( "camera_selection" );
+  select.innerHTML = '';
+  select.appendChild(document.createElement('option'));
+  let count = 1;
+  mediaDevices.forEach(mediaDevice => {
+    if (mediaDevice.kind === 'videoinput') {
+      const option = document.createElement('option');
+      option.value = mediaDevice.deviceId;
+      const label = mediaDevice.label || `Camera ${count++}`;
+      const textNode = document.createTextNode(label);
+      option.appendChild(textNode);
+      select.appendChild(option);
+    }
+  });
+}
+
+function updateVideoDevice(event) {
+  const select = document.getElementById('video-devices');
+  const localParticipant = room.localParticipant;
+  if (select.value !== '') {
+    Video.createLocalVideoTrack({
+      deviceId: { exact: select.value }
+    }).then(function(localVideoTrack) {
+      const tracks = Array.from(localParticipant.videoTracks.values());
+      localParticipant.unpublishTracks(tracks);
+      localParticipant.publishTrack(localVideoTrack);
+    });
+  }
+}
+
 // Successfully connected!
 function roomJoined(room) {
   window.room = activeRoom = room;
+
+  navigator.mediaDevices.enumerateDevices().then(gotDevices);
+  var select = document.getElementById('video-devices');
+  select.addEventListener('change', updateVideoDevice);
 
   log("Joined as '" + identity + "'");
   document.getElementById('button-join').style.display = 'none';
@@ -121,6 +156,17 @@ function roomJoined(room) {
     detachTracks([track]);
   });
 
+  room.localParticipant.on('trackRemoved', function(track) {
+    log(room.localParticipant.identity + " removed track: " + track.kind);
+    detachTracks([track]);
+  });
+
+  room.localParticipant.on('trackAdded', function(track) {
+    log(room.localParticipant.identity + " added track: " + track.kind);
+    var previewContainer = document.getElementById('local-media');
+    attachTracks([track], previewContainer);
+  })
+
   // When a Participant leaves the Room, detach its Tracks.
   room.on('participantDisconnected', function(participant) {
     log("Participant '" + participant.identity + "' left the room");
@@ -141,6 +187,7 @@ function roomJoined(room) {
     activeRoom = null;
     document.getElementById('button-join').style.display = 'inline';
     document.getElementById('button-leave').style.display = 'none';
+    select.removeEventListener('change', updateVideoDevice);
   });
 }
 
@@ -159,16 +206,16 @@ function leaveRoomIfJoined() {
   }
 }
 
-function applyVideoInputDeviceSelection(deviceId, video) {
-  return Video.createLocalVideoTrack({
-    facingMode: "environment",
-    deviceId: deviceId,
-    height: 240,
-    width: 320
-  }).then(function(localTrack) {
-    localTrack.attach(video);
-  });
-}
+// function applyVideoInputDeviceSelection(deviceId, video) {
+//   return Video.createLocalVideoTrack({
+//     facingMode: "environment",
+//     deviceId: deviceId,
+//     height: 240,
+//     width: 320
+//   }).then(function(localTrack) {
+//     localTrack.attach(video);
+//   });
+// }
 
 
 
@@ -177,8 +224,8 @@ function applyVideoInputDeviceSelection(deviceId, video) {
 
 // function stopMediaTracks(previewTracks) {
 // previewTracks.getTracks().forEach(track => {
-//    track.stop();
-//  });
+//    track.stop();
+//  });
 // }
 
 // This is to populate the dropdown with items and devices that the camera has.
@@ -199,82 +246,60 @@ function applyVideoInputDeviceSelection(deviceId, video) {
 // });
 
 
-let currentStream;
+// let currentStream;
 
 
-function stopMediaTracks(stream) {
-  stream.getTracks().forEach(track => {
-    track.stop();
-  });
-}
+// function stopMediaTracks(stream) {
+//   stream.getTracks().forEach(track => {
+//     track.stop();
+//   });
+// }
 
 
-$(document).ready(function() {
-  $("#switch-camera").click(function(){
-    //Get the selected deviceID
-    var select = document.getElementById( "camera_selection" );
-    var theDeviceID =  select.options[ select.selectedIndex ].value;
+// $(document).ready(function() {
+//   $("#switch-camera").click(function(){
+//     //Get the selected deviceID
+//     var select = document.getElementById( "camera_selection" );
+//     var theDeviceID =  select.options[ select.selectedIndex ].value;
 
-    if (theDeviceID.toString()== ""){
-      alert("Please Select a Valid Video Device!");
-    } 
-    else{
-    //Add the current Device ID to the localTrack
-      if (typeof currentStream !== 'undefined') {
-        stopMediaTracks(currentStream);
-      }
-      const videoConstraints = {};
-      if (select.value === '') {
-        videoConstraints.facingMode = 'environment';
-      } else {
-        videoConstraints.deviceId = { exact: select.value };
-      }
-      const constraints = {
-        video: videoConstraints,
-        audio: false
-      };
-      navigator.mediaDevices
-        .getUserMedia(constraints)
-        .then(stream => {
-          currentStream = stream;
-          console.log(currentStream);
+//     if (theDeviceID.toString()== ""){
+//       alert("Please Select a Valid Video Device!");
+//     } 
+//     else{
+//     //Add the current Device ID to the localTrack
+//       if (typeof currentStream !== 'undefined') {
+//         stopMediaTracks(currentStream);
+//       }
+//       const videoConstraints = {};
+//       if (select.value === '') {
+//         videoConstraints.facingMode = 'environment';
+//       } else {
+//         videoConstraints.deviceId = { exact: select.value };
+//       }
+//       const constraints = {
+//         video: videoConstraints,
+//         audio: false
+//       };
+//       navigator.mediaDevices
+//         .getUserMedia(constraints)
+//         .then(stream => {
+//           currentStream = stream;
+//           console.log(currentStream);
 
-          //----------------------------------------------
-          // NEED TO ATTACH CURRENT STREAM TO CALL SOMEHOW
-          //----------------------------------------------
+//           //----------------------------------------------
+//           // NEED TO ATTACH CURRENT STREAM TO CALL SOMEHOW
+//           //----------------------------------------------
 
-          // video.srcObject = stream;
-          return navigator.mediaDevices.enumerateDevices();
-        })
-        .then(gotDevices)
-        .catch(error => {
-          console.error(error);
-        });
-    }
-  });
-});
-
-
-
-function gotDevices(mediaDevices) {
-  var select = document.getElementById( "camera_selection" );
-  select.innerHTML = '';
-  select.appendChild(document.createElement('option'));
-  let count = 1;
-  mediaDevices.forEach(mediaDevice => {
-    if (mediaDevice.kind === 'videoinput') {
-      const option = document.createElement('option');
-      option.value = mediaDevice.deviceId;
-      const label = mediaDevice.label || `Camera ${count++}`;
-      const textNode = document.createTextNode(label);
-      option.appendChild(textNode);
-      select.appendChild(option);
-    }
-  });
-}
-
-navigator.mediaDevices.enumerateDevices().then(gotDevices);
-
+//           // video.srcObject = stream;
+//           return navigator.mediaDevices.enumerateDevices();
+//         })
+//         .then(gotDevices)
+//         .catch(error => {
+//           console.error(error);
+//         });
+//     }
+//   });
+// });
 
 
 
@@ -321,4 +346,3 @@ navigator.mediaDevices.enumerateDevices().then(gotDevices);
 
 //   }
 // });
-
