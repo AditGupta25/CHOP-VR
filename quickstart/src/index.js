@@ -309,6 +309,7 @@ function leaveRoomIfJoined() {
           }else{
             $("#overlay").hide();
             // console.log(identity);
+            $(this).prop('disabled', true);
             setPatientSettings();
           } 
 
@@ -320,6 +321,7 @@ function leaveRoomIfJoined() {
           }else{
             $("#overlay").hide();
             // console.log(identity);
+            $(this).prop('disabled', true);
             setDoctorSettings();
           } 
         }

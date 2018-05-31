@@ -28701,27 +28701,6 @@ function roomJoined(room) {
     log("Joining: '" + participant.identity + "'");
   });
 
-  // When a Participant adds a Track, attach it to the DOM.
-  room.on('trackAdded', function(track, participant) {
-    try{
-      log(participant.identity + " added track: " + track.kind);
-      var remoteCameraContainer1 = document.getElementById('remote-media');
-      attachTracks([track], remoteCameraContainer1);
-    }catch(err){
-      console.log("Error occured trying attach for remoteCameraContainer1");
-    }
-  });
-
-  room.on('trackAdded', function(track, participant) {
-    try{
-      log(participant.identity + " added track: " + track.kind);
-      var remoteCameraContainer2 = document.getElementById('remote-media2');
-      attachTracks([track], remoteCameraContainer2);
-    }catch(err){
-      console.log("Error occured trying attach for remoteCameraContainer2");
-    }
-    
-  });
 
   // When a Participant removes a Track, detach it from the DOM.
   room.on('trackRemoved', function(track, participant) {
@@ -28754,6 +28733,29 @@ function roomJoined(room) {
     }
     
   })
+
+
+  // When a Participant adds a Track, attach it to the DOM.
+  room.on('trackAdded', function(track, participant) {
+    try{
+      log(participant.identity + " added track: " + track.kind);
+      var remoteCameraContainer1 = document.getElementById('remote-media');
+      attachTracks([track], remoteCameraContainer1);
+    }catch(err){
+      console.log("Error occured trying attach for remoteCameraContainer1");
+    }
+  });
+
+  room.on('trackAdded', function(track, participant) {
+    try{
+      log(participant.identity + " added track: " + track.kind);
+      var remoteCameraContainer2 = document.getElementById('remote-media2');
+      attachTracks([track], remoteCameraContainer2);
+    }catch(err){
+      console.log("Error occured trying attach for remoteCameraContainer2");
+    }
+    
+  });
 
   // When a Participant leaves the Room, detach its Tracks.
   room.on('participantDisconnected', function(participant) {
@@ -28817,6 +28819,7 @@ function leaveRoomIfJoined() {
           }else{
             $("#overlay").hide();
             // console.log(identity);
+            $(this).prop('disabled', true);
             setPatientSettings();
           } 
 
@@ -28828,6 +28831,7 @@ function leaveRoomIfJoined() {
           }else{
             $("#overlay").hide();
             // console.log(identity);
+            $(this).prop('disabled', true);
             setDoctorSettings();
           } 
         }
@@ -28843,7 +28847,7 @@ function leaveRoomIfJoined() {
   function setDoctorSettings(){
     //Doctor sees themselves in the little screen, the patient in the big screen. 
     console.log('user selected doctor');
-    
+
     document.getElementById("remote-media").setAttribute("id", "local-div1");
     document.getElementById("local-div1").setAttribute("id", "remote-media");
     document.getElementById("local-div2").setAttribute("id", "remote-media2");

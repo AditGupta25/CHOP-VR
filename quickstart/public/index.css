@@ -44,6 +44,7 @@ div#controls div#room-controls button#button-leave {
 
 
 html, body { height: 100%; padding: 0; margin: 0; }
+
 .local-media { width: 50%; height: 100%; float: left; }
 
 .upper_right {
@@ -98,9 +99,6 @@ video {
   margin-top: 30px;
 }
 
-.device-select{
-  margin-top: 30px;
-}
 
 #overlay {
   display: show;
@@ -114,4 +112,18 @@ video {
   opacity: .8;
 }
 
+/*GREY OUT BUTTON SUBMIT*/
+
+/*.device-select{
+  left: 10px;
+}
+
+.controlPanel{
+    right: 10px;
+}*/
+
+.footer{
+    float:center;
+    margin-right:5px;
+}
 
