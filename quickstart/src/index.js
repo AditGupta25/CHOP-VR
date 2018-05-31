@@ -123,34 +123,68 @@ function roomJoined(room) {
   document.getElementById('button-leave').style.display = 'inline';
 
   // Attach LocalParticipant's Tracks, if not already attached.
-  var previewContainer1 = document.getElementById('local-div1');
-  if (!previewContainer1.querySelector('video')) {
-    attachParticipantTracks(activeRoom.localParticipant, previewContainer1);
-  }else{
-    previewContainer1.querySelector('video').remove();
-    attachParticipantTracks(activeRoom.localParticipant, previewContainer1);
+
+  try{
+    var previewContainer1 = document.getElementById('local-div1');
+    if (!previewContainer1.querySelector('video')) {
+      attachParticipantTracks(activeRoom.localParticipant, previewContainer1);
+    }else{
+      previewContainer1.querySelector('video').remove();
+      previewContainer1.querySelector('audio').remove();
+      attachParticipantTracks(activeRoom.localParticipant, previewContainer1);
+    }
+  }catch(err){
+    console.log("Error occured in Preview Container 1");
   }
 
-  var previewContainer2 = document.getElementById('local-div2');
-  if (!previewContainer2.querySelector('video')) {
-    attachParticipantTracks(activeRoom.localParticipant, previewContainer2);
-  }else{
-    previewContainer2.querySelector('video').remove();
-    attachParticipantTracks(activeRoom.localParticipant, previewContainer2);
+
+  try{
+    var previewContainer2 = document.getElementById('local-div2');
+    if (!previewContainer2.querySelector('video')) {
+      attachParticipantTracks(activeRoom.localParticipant, previewContainer2);
+    }else{
+      previewContainer2.querySelector('video').remove();
+      previewContainer2.querySelector('audio').remove();
+      attachParticipantTracks(activeRoom.localParticipant, previewContainer2);
+    }
+  }catch(err){
+    console.log("Error occured in Preview Container 2");
   }
 
 
   // Attach the Tracks of the Room's Participants.
   room.participants.forEach(function(participant) {
-  log("Already in Room: '" + participant.identity + "'");
-  var remoteCameraContainer = document.getElementById('remote-media');
-    if (!remoteCameraContainer.querySelector('video')) {
-    attachParticipantTracks(participant, remoteCameraContainer);
-    }else{
-    remoteCameraContainer.querySelector('video').remove();
-    attachParticipantTracks(participant, remoteCameraContainer);
+    try{
+        log("Already in Room: '" + participant.identity + "'");
+        var remoteCameraContainer1 = document.getElementById('remote-media');
+        if (!remoteCameraContainer1.querySelector('video')) {
+        attachParticipantTracks(participant, remoteCameraContainer1);
+        }else{
+        remoteCameraContainer1.querySelector('video').remove();
+        remoteCameraContainer1.querySelector('audio').remove();
+        attachParticipantTracks(participant, remoteCameraContainer1);
+    }
+    }catch(err){
+        console.log("Error occured trying attachParticipantTracks for remoteCameraContainer1");
     }
    });
+
+
+  room.participants.forEach(function(participant) {
+    try{
+        log("Already in Room: '" + participant.identity + "'");
+        var remoteCameraContainer2 = document.getElementById('remote-medi2');
+        if (!remoteCameraContainer2.querySelector('video')) {
+        attachParticipantTracks(participant, remoteCameraContainer2);
+        }else{
+        remoteCameraContainer2.querySelector('video').remove();
+        remoteCameraContainer2.querySelector('audio').remove();
+        attachParticipantTracks(participant, remoteCameraContainer2);
+        }
+    }catch(err){
+          console.log("Error occured trying attachParticipantTracks for remoteCameraContainer2");
+    }
+  });
 
   // When a Participant joins the Room, log the event.
   room.on('participantConnected', function(participant) {
@@ -159,9 +193,24 @@ function roomJoined(room) {
 
   // When a Participant adds a Track, attach it to the DOM.
   room.on('trackAdded', function(track, participant) {
-    log(participant.identity + " added track: " + track.kind);
-    var remoteCameraContainer2 = document.getElementById('remote-media');
-    attachTracks([track], remoteCameraContainer2);
+    try{
+      log(participant.identity + " added track: " + track.kind);
+      var remoteCameraContainer1 = document.getElementById('remote-media');
+      attachTracks([track], remoteCameraContainer1);
+    }catch(err){
+      console.log("Error occured trying attach for remoteCameraContainer1");
+    }
+  });
+
+  room.on('trackAdded', function(track, participant) {
+    try{
+      log(participant.identity + " added track: " + track.kind);
+      var remoteCameraContainer2 = document.getElementById('remote-media2');
+      attachTracks([track], remoteCameraContainer2);
+    }catch(err){
+      console.log("Error occured trying attach for remoteCameraContainer2");
+    }
+    
   });
 
   // When a Participant removes a Track, detach it from the DOM.
@@ -176,15 +225,24 @@ function roomJoined(room) {
   });
 
   room.localParticipant.on('trackAdded', function(track) {
-    log(room.localParticipant.identity + " added track: " + track.kind);
-    var previewContainer1 = document.getElementById('local-div1');
-    attachTracks([track], previewContainer1);
+    try{
+      log(room.localParticipant.identity + " added track: " + track.kind);
+      var previewContainer1 = document.getElementById('local-div1');
+      attachTracks([track], previewContainer1);
+    }catch(err){
+      console.log("Error occured trying attach for previewContainer1");
+    }
   })
 
   room.localParticipant.on('trackAdded', function(track) {
-    log(room.localParticipant.identity + " added track: " + track.kind);
-    var previewContainer2 = document.getElementById('local-div2');
-    attachTracks([track], previewContainer2);
+    try{
+      log(room.localParticipant.identity + " added track: " + track.kind);
+      var previewContainer2 = document.getElementById('local-div2');
+      attachTracks([track], previewContainer2);
+    }catch(err){
+      console.log("Error occured trying attach for previewContainer2");
+    }
+    
   })
 
   // When a Participant leaves the Room, detach its Tracks.
@@ -249,7 +307,7 @@ function leaveRoomIfJoined() {
           }else{
             $("#overlay").hide();
             // console.log(identity);
-            setPatientSettings(identity);
+            setPatientSettings();
           } 
 
         }else{
@@ -260,17 +318,23 @@ function leaveRoomIfJoined() {
           }else{
             $("#overlay").hide();
             // console.log(identity);
-            setDoctorSettings(identity);
+            setDoctorSettings();
           } 
         }
       });
     });
 
-  function setPatientSettings(name){
+  function setPatientSettings(){
     //Patient sees themselves in the big screen, and the doctor in the little screen
-    //<local
+    //local-div1 and local-div2 should have what the patient sees, and the remote-div should have what the user recieves
+    console.log('user selected patient');
   }
 
-  function setDoctorSettings(name){
+  function setDoctorSettings(){
     //Doctor sees themselves in the little screen, the patient in the big screen. 
+    console.log('user selected doctor');
+    
+    document.getElementById("remote-media").setAttribute("id", "local-div1");
+    document.getElementById("local-div1").setAttribute("id", "remote-media");
+    document.getElementById("local-div2").setAttribute("id", "remote-media2");
   }
