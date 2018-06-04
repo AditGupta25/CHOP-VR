@@ -23,6 +23,12 @@
 
 <div id="remote-media" class="upper_right"></div>
 
+<textarea id="textArea" class="textAreaStyle" rows="10" cols="30" readonly>
+  
+
+</textarea>
+
+
 <!-- <div id="remote-media"></div> -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">  
@@ -44,8 +50,33 @@
                 <input id="userName" type="text" aria-label="Default" placeholder="Enter Name" style="margin-left: 10px; margin-right: 10px; line-height: 2.2em; width: 90px;">
 
 
-                <button id="submitButton" type="button" class="btn btn-primary">Submit!</button>
+                <button id="submitButton" type="button" class="btn btn-primary">Submit</button>
             </div>
+
+            <div class="setScreenSize"> 
+                <h4>Set Screen Size:</h4>
+                <input id="screenSize" type="checkbox" checked data-toggle="toggle" data-off="Big Screen" data-on="Small Screen" data-onstyle="default" data-offstyle="default" data-width="125">
+                <button id="setScreenSize" type="button" class="btn btn-primary">Set</button>
+            </div>
+
+          <div id="problemSelection" class="selectProblems">
+            <h4>Select all that apply:</h4>
+
+            <div class="funkyradio">
+                <div class="funkyradio-info">
+                    <input type="checkbox" name="checkbox" id="checkbox1" unchecked/>
+                    <label for="checkbox1">Omphalocele</label>
+                </div>
+                <div class="funkyradio-info">
+                    <input type="checkbox" name="checkbox" id="checkbox2" unchecked/>
+                    <label for="checkbox2">G-Tube</label>
+                </div>
+                <div class="funkyradio-info">
+                    <input type="checkbox" name="checkbox" id="checkbox3" unchecked/>
+                    <label for="checkbox3">Respiratory Support</label>
+                </div>
+            </div>        
+          </div>
 
           <div id="room-controls">
             <h4>Room Name:</h4>
@@ -53,6 +84,7 @@
               <button id="button-join" style="color: red;">Join Room</button>
               <button id="button-leave" style="color: red;">Leave Room</button>
           </div>
+
 
           <div class="device-select">
             <h4>Change Device:</h4>

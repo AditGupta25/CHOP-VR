@@ -28562,6 +28562,10 @@ $.getJSON('/token', function(data) {
       return;
     }
 
+    //Show the disease prevention notes on display here 
+    displayPatientNotes();
+    //-------------------------------------------------  
+
     log("Joining room '" + roomName + "'...");
     var connectOptions = {
       name: roomName,
@@ -28818,6 +28822,9 @@ function leaveRoomIfJoined() {
             alert("Please Enter a Name!")
           }else{
             $("#overlay").hide();
+
+            $("#problemSelection").show();
+
             // console.log(identity);
             $(this).prop('disabled', true);
             setPatientSettings();
@@ -28852,4 +28859,64 @@ function leaveRoomIfJoined() {
     document.getElementById("local-div1").setAttribute("id", "remote-media");
     document.getElementById("local-div2").setAttribute("id", "remote-media2");
   }
+
+
+
+  var isSmallScreen = "true";
+
+  $(function() {
+    $('#screenSize').change(function() {
+      currentToggle = '' + $(this).prop('checked');
+    })
+  });
+
+
+  $(function() {
+    $( "#setScreenSize" ).click(function() {
+        //Disable button for click
+
+        if(isSmallScreen == "true"){
+          //This is a small screen and nothing changes, we can do VR! 
+          alert("Sorry, this feature does not work yet!");
+
+        }else{
+          //This is a big screen, and I do not think we can do VR :(
+          alert("Sorry, this feature does not work yet!");
+        }
+    });
+  });
+
+
+  function displayPatientNotes(){
+    var textElement =  document.getElementById("textArea"); 
+
+     textElement.value = "Patient Notes:";
+     textElement.value += "\n----------------";
+
+
+     if(document.getElementById("checkbox1").checked == true){
+        textElement.value += "\n Omphalocele Checklist Items:";
+        textElement.value += "\n - Check Wound";
+        textElement.value += "\n - Demo Dressing Change";
+     }
+
+     if(document.getElementById("checkbox2").checked == true){
+        textElement.value += "\n\n G-Tube Checklist Items:";
+        textElement.value += "\n - Got Adequate supplies?";
+        textElement.value += "\n - Demo attachment to resevoir";     
+     }  
+
+     if(document.getElementById("checkbox3").checked == true){
+        textElement.value += "\n\n Respiratory Support Checklist Items:";
+        textElement.value += "\n - Confirm correct settings";
+        textElement.value += "\n - Call 18003452345 for support";
+
+     }
+
+
+
+    var patientNotes = "test";
+  }
+
+
 },{"twilio-video":67}]},{},[150]);
