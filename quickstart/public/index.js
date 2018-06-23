@@ -28912,11 +28912,41 @@ function leaveRoomIfJoined() {
         textElement.value += "\n - Call 18003452345 for support";
 
      }
-
-
-
     var patientNotes = "test";
   }
+
+
+
+
+  $(function() {
+    $( "#doctor-quickstart" ).click(function() {
+       
+       setPatientSettings();
+
+       //enter room called test
+       
+       $("#userName").val("Doctor");
+       $( "#submitButton" ).trigger( "click" );
+
+       $("#room-name").val("test");
+       $( "#button-join" ).trigger( "click" );
+    });
+  });
+
+  $(function() {
+    $( "#patient-quickstart" ).click(function() {
+       
+       setDoctorSettings();
+
+      //enter room called test
+      $("#userName").val("Patient");
+      $( "#submitButton" ).trigger( "click" );
+
+      $("#room-name").val("test");
+      $( "#button-join" ).trigger( "click" );
+    });
+  });
+
 
 
 },{"twilio-video":67}]},{},[150]);
