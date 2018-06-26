@@ -32302,7 +32302,7 @@ function leaveRoomIfJoined() {
   $(function() {
     $( "#doctor-quickstart" ).click(function() {
        
-       setPatientSettings();
+       setDoctorSettings();
 
        //enter room called test
        
@@ -32317,7 +32317,7 @@ function leaveRoomIfJoined() {
   $(function() {
     $( "#patient-quickstart" ).click(function() {
        
-       setDoctorSettings();
+       setPatientSettings();
 
       //enter room called test
       $("#userName").val("Patient");
