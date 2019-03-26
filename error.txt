@@ -1,0 +1,271 @@
+index.js:32244 user selected doctor
+index.js:32205 true
+index.js:32239 user selected patient
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | configuration parameters after validation:
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · viaHost: "t3kgq0t4s9ab.invalid"
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · uri: sip:d5b432c4-a678-42e5-b971-7e1a9a08725d@endpoint.twilio.com
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · wsServers: [{"ws_uri":"wss://endpoint.twilio.com","sip_uri":"<sip:endpoint.twilio.com;transport=ws;lr>","weight":0,"status":0,"scheme":"WSS"}]
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · password: NOT SHOWN
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · registerExpires: 600
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · register: false
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · registrarServer: sip:endpoint.twilio.com
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · wsServerMaxReconnection: 3
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · wsServerReconnectionTimeout: 4
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · connectionRecoveryMinInterval: 2
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · connectionRecoveryMaxInterval: 30
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · keepAliveInterval: 30
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · extraSupported: ["room-signaling","timer"]
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · usePreloadedRoute: false
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · userAgentString: "SIP.js/0.7.7"
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · iceCheckingTimeout: 5000
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · noAnswerTimeout: 60000
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · stunServers: ["stun:stun.l.google.com:19302"]
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · turnServers: []
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · traceSip: true
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · hackViaTcp: false
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · hackIpInContact: false
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · hackWssInTransport: true
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · hackAllowUnregisteredOptionTags: true
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · hackCleanJitsiSdpImageattr: false
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · hackStripTcp: false
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · contactTransport: "wss"
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · forceRport: false
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · autostart: false
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · rel100: "none"
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · replaces: "none"
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · mediaHandlerFactory: function promisifiedFactory () {
+          var mediaHandler = mediaHandlerFactory.apply(this, arguments);
+
+          function patchMethod (methodName) {
+            var method = mediaHandler[methodName];
+            if (method.length > 1) {
+              var callbacksFirst = methodName === 'getDescription';
+              mediaHandler[methodName] = SIP.Utils.promisify(mediaHandler, methodName, callbacksFirst);
+            }
+          }
+
+          patchMethod('getDescription');
+          patchMethod('setDescription');
+
+          return mediaHandler;
+        }
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · authenticationFactory: undefined
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · allowLegacyNotifications: false
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · instanceId: "e33bebe3-21fc-4f8a-9bd6-00ee8c659667"
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · sipjsId: "s30eb"
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · hostportParams: "endpoint.twilio.com"
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · authorizationUser: "d5b432c4-a678-42e5-b971-7e1a9a08725d"
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | · media: undefined
+index.js:28546 2019-03-20 15:28:21.191Z | INFO in [connect #1]: Connecting to a Room
+index.js:28546 2019-03-20 15:28:21.191Z | DEBUG in [connect #1]: Options: Object
+index.js:28546 2019-03-20 15:28:21.192Z | INFO in [NTSIceServerSource #1]: Created a new NTSIceServerSource
+index.js:28546 2019-03-20 15:28:21.192Z | DEBUG in [NTSIceServerSource #1]: ECS server: https://ecs.us1.twilio.com
+index.js:28546 2019-03-20 15:28:21.193Z | INFO in [connect #1]: LocalTracks were not provided, so they will be acquired automatically before connecting to the Room. LocalTracks will be released if connecting to the Room fails or if the Room is disconnected
+index.js:28546 2019-03-20 15:28:21.836Z | INFO in [createLocalTracks #1]: Call to getUserMedia successful; got MediaStreamTracks: Array(2)0: MediaStreamTrack {kind: "audio", id: "6e7767e1-a842-4484-bd5a-6349e608e385", label: "Default - Internal Microphone (Built-in)", enabled: true, muted: false, …}1: MediaStreamTrack {kind: "video", id: "c0ad0127-fe63-44af-a98a-28e1c89816d8", label: "FaceTime HD Camera", enabled: true, muted: false, …}length: 2__proto__: Array(0)
+index.js:28546 2019-03-20 15:28:21.837Z | DEBUG in [LocalAudioTrack #1: 6e7767e1-a842-4484-bd5a-6349e608e385]: Initializing
+index.js:28546 2019-03-20 15:28:21.838Z | DEBUG in [LocalVideoTrack #2: c0ad0127-fe63-44af-a98a-28e1c89816d8]: Initializing
+index.js:28546 2019-03-20 15:28:21.838Z | DEBUG in [LocalVideoTrack #2: c0ad0127-fe63-44af-a98a-28e1c89816d8]: Attempting to attach to element: <video autoplay>​</video>​
+index.js:28546 2019-03-20 15:28:21.839Z | DEBUG in [connect #1]: Creating a new LocalParticipant: LocalParticipantV2
+index.js:28546 2019-03-20 15:28:21.840Z | INFO in [LocalParticipant #1]: Created a new Participant
+index.js:28546 2019-03-20 15:28:21.841Z | INFO in [LocalParticipant #1]: Added a new LocalAudioTrack: 6e7767e1-a842-4484-bd5a-6349e608e385
+index.js:28546 2019-03-20 15:28:21.841Z | DEBUG in [LocalParticipant #1]: LocalAudioTrack: LocalAudioTrack
+index.js:28546 2019-03-20 15:28:21.842Z | INFO in [LocalParticipant #1]: Added a new LocalVideoTrack: c0ad0127-fe63-44af-a98a-28e1c89816d8
+index.js:28546 2019-03-20 15:28:21.842Z | DEBUG in [LocalParticipant #1]: LocalVideoTrack: LocalVideoTrack
+index.js:28546 2019-03-20 15:28:21.842Z | INFO in [connect #1]: Getting ICE servers
+index.js:28546 2019-03-20 15:28:21.842Z | DEBUG in [connect #1]: Options: Object
+index.js:28546 2019-03-20 15:28:21.842Z | INFO in [NTSIceServerSource #1]: Starting
+index.js:28546 2019-03-20 15:28:21.842Z | DEBUG in [NTSIceServerSource #1]: Getting ECS configuration
+index.js:28546 2019-03-20 15:28:21.844Z | DEBUG in [LocalAudioTrack #1: 6e7767e1-a842-4484-bd5a-6349e608e385]: Started
+index.js:28546 2019-03-20 15:28:21.908Z | INFO in [NTSIceServerSource #1]: Got ICE servers: [{"urls":"turn:global.turn.twilio.com:3478?transport=udp","username":"3946fba637863edc418b76b7880ace4a65661d4a8b255317aa3c306ad64d3c5f","credential":"ViTgX/ukOt8E3NRHBgeUDiRHGEVwIcUk8rYB3C0hjBw="},{"urls":"turns:global.turn.twilio.com:443?transport=tcp","username":"3946fba637863edc418b76b7880ace4a65661d4a8b255317aa3c306ad64d3c5f","credential":"ViTgX/ukOt8E3NRHBgeUDiRHGEVwIcUk8rYB3C0hjBw="}]
+index.js:28546 2019-03-20 15:28:21.908Z | INFO in [NTSIceServerSource #1]: Getting ICE servers again in 14400 seconds
+index.js:28546 2019-03-20 15:28:21.909Z | INFO in [connect #1]: Got ICE servers
+index.js:28546 2019-03-20 15:28:21.909Z | DEBUG in [connect #1]: ICE servers: Array(2)
+index.js:28546 2019-03-20 15:28:21.909Z | DEBUG in [connect #1]: Creating a new RoomSignaling
+index.js:28546 2019-03-20 15:28:21.909Z | DEBUG in [connect #1]: RoomSignaling params: Object
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | user requested startup...
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.transport | connecting to WebSocket wss://endpoint.twilio.com
+index.js:28546 2019-03-20 15:28:21.937Z | DEBUG in [LocalVideoTrack #2: c0ad0127-fe63-44af-a98a-28e1c89816d8]: Dimensions: Object
+index.js:28546 2019-03-20 15:28:21.937Z | DEBUG in [LocalVideoTrack #2: c0ad0127-fe63-44af-a98a-28e1c89816d8]: Started
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.transport | WebSocket wss://endpoint.twilio.com connected
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.ua | connection state set to 0
+index.js:2593 Wed Mar 20 2019 11:28:21 GMT-0400 (Eastern Daylight Time) | sip.transport | sending WebSocket message:
+
+INVITE sip:orchestrator@endpoint.twilio.com SIP/2.0
+Via: SIP/2.0/WSS t3kgq0t4s9ab.invalid;branch=z9hG4bK2839022
+Max-Forwards: 70
+To: <sip:orchestrator@endpoint.twilio.com>
+From: <sip:d5b432c4-a678-42e5-b971-7e1a9a08725d@endpoint.twilio.com>;tag=cqbuk0so0f
+Call-ID: s30ebhngap15u2p7s8km
+CSeq: 5863 INVITE
+X-Twilio-AccessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImN0eSI6InR3aWxpby1mcGE7dj0xIn0.eyJqdGkiOiJTS2I3NDE1ZGNiMjc2NTRhN2FlZmIwOTU1ZTdhMzQ4YTI5LTE1NTMwOTU2OTgiLCJncmFudHMiOnsiaWRlbnRpdHkiOiJZYXduaW5nVWx5c3Nlc05ldmlzIiwidmlkZW8iOnt9fSwiaWF0IjoxNTUzMDk1Njk4LCJleHAiOjE1NTMwOTkyOTgsImlzcyI6IlNLYjc0MTVkY2IyNzY1NGE3YWVmYjA5NTVlN2EzNDhhMjkiLCJzdWIiOiJBQzFmMWI0NWM1ZDg0NzhkYmNjN2RlOThmOWQ5ZWUzYTA2In0.GXgGYpjOAdFK7tG6eXbpY5s2Uc4VfxvCwQF-tdFhTJQ
+Session-Expires: 120
+Contact: <sip:acn6m0a5@t3kgq0t4s9ab.invalid;transport=wss;ob>
+Allow: ACK,CANCEL,INVITE,MESSAGE,BYE,OPTIONS,INFO,NOTIFY,REFER
+Supported: outbound, room-signaling, timer
+User-Agent: SIP.js/0.7.7
+Content-Type: application/room-signaling+json
+Content-Length: 6497
+
+{"peer_connections":[{"description":{"type":"offer","revision":1,"sdp":"v=0\r\no=- 8337251131873174301 2 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\na=group:BUNDLE 0 1\r\na=msid-semantic: WMS 13c0d704-1103-4f9b-9b49-9f0a16465044\r\nm=audio 9 UDP/TLS/RTP/SAVPF 111 103 104 9 0 8 106 105 13 110 112 113 126\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:lKl4\r\na=ice-pwd:X1kEQaqA+GlXYQMpTsgUxHPp\r\na=ice-options:trickle\r\na=fingerprint:sha-256 DA:CC:B6:D7:4D:AD:52:EC:EE:0E:94:B8:53:86:17:1B:DC:64:E8:E4:8C:69:E6:18:56:1C:FD:F9:39:A9:6A:7E\r\na=setup:actpass\r\na=mid:0\r\na=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level\r\na=extmap:9 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=extmap:13 urn:ietf:params:rtp-hdrext:sdes:rtp-stream-id\r\na=extmap:14 urn:ietf:params:rtp-hdrext:sdes:repaired-rtp-stream-id\r\na=sendrecv\r\na=msid:13c0d704-1103-4f9b-9b49-9f0a16465044 6e7767e1-a842-4484-bd5a-6349e608e385\r\na=rtcp-mux\r\na=rtpmap:111 opus/48000/2\r\na=rtcp-fb:111 transport-cc\r\na=fmtp:111 minptime=10;useinbandfec=1\r\na=rtpmap:103 ISAC/16000\r\na=rtpmap:104 ISAC/32000\r\na=rtpmap:9 G722/8000\r\na=rtpmap:0 PCMU/8000\r\na=rtpmap:8 PCMA/8000\r\na=rtpmap:106 CN/32000\r\na=rtpmap:105 CN/16000\r\na=rtpmap:13 CN/8000\r\na=rtpmap:110 telephone-event/48000\r\na=rtpmap:112 telephone-event/32000\r\na=rtpmap:113 telephone-event/16000\r\na=rtpmap:126 telephone-event/8000\r\na=ssrc:3545177320 cname:Z+IPdsj5el515QAG\r\na=ssrc:3545177320 msid:13c0d704-1103-4f9b-9b49-9f0a16465044 6e7767e1-a842-4484-bd5a-6349e608e385\r\na=ssrc:3545177320 mslabel:13c0d704-1103-4f9b-9b49-9f0a16465044\r\na=ssrc:3545177320 label:6e7767e1-a842-4484-bd5a-6349e608e385\r\nm=video 9 UDP/TLS/RTP/SAVPF 96 97 99 101 122 121 107 109 120 119 115 98 100 102 127 125 108 124 123 114 116\r\nc=IN IP4 0.0.0.0\r\na=rtcp:9 IN IP4 0.0.0.0\r\na=ice-ufrag:lKl4\r\na=ice-pwd:X1kEQaqA+GlXYQMpTsgUxHPp\r\na=ice-options:trickle\r\na=fingerprint:sha-256 DA:CC:B6:D7:4D:AD:52:EC:EE:0E:94:B8:53:86:17:1B:DC:64:E8:E4:8C:69:E6:18:56:1C:FD:F9:39:A9:6A:7E\r\na=setup:actpass\r\na=mid:1\r\na=extmap:2 urn:ietf:params:rtp-hdrext:toffset\r\na=extmap:3 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time\r\na=extmap:4 urn:3gpp:video-orientation\r\na=extmap:5 http://www.ietf.org/id/draft-holmer-rmcat-transport-wide-cc-extensions-01\r\na=extmap:6 http://www.webrtc.org/experiments/rtp-hdrext/playout-delay\r\na=extmap:7 http://www.webrtc.org/experiments/rtp-hdrext/video-content-type\r\na=extmap:8 http://www.webrtc.org/experiments/rtp-hdrext/video-timing\r\na=extmap:10 http://tools.ietf.org/html/draft-ietf-avtext-framemarking-07\r\na=extmap:12 http://www.webrtc.org/experiments/rtp-hdrext/color-space\r\na=extmap:9 urn:ietf:params:rtp-hdrext:sdes:mid\r\na=extmap:13 urn:ietf:params:rtp-hdrext:sdes:rtp-stream-id\r\na=extmap:14 urn:ietf:params:rtp-hdrext:sdes:repaired-rtp-stream-id\r\na=sendrecv\r\na=msid:13c0d704-1103-4f9b-9b49-9f0a16465044 c0ad0127-fe63-44af-a98a-28e1c89816d8\r\na=rtcp-mux\r\na=rtcp-rsize\r\na=rtpmap:96 VP8/90000\r\na=rtcp-fb:96 goog-remb\r\na=rtcp-fb:96 transport-cc\r\na=rtcp-fb:96 ccm fir\r\na=rtcp-fb:96 nack\r\na=rtcp-fb:96 nack pli\r\na=rtpmap:97 rtx/90000\r\na=fmtp:97 apt=96\r\na=rtpmap:98 VP9/90000\r\na=rtcp-fb:98 goog-remb\r\na=rtcp-fb:98 transport-cc\r\na=rtcp-fb:98 ccm fir\r\na=rtcp-fb:98 nack\r\na=rtcp-fb:98 nack pli\r\na=fmtp:98 profile-id=0\r\na=rtpmap:99 rtx/90000\r\na=fmtp:99 apt=98\r\na=rtpmap:100 VP9/90000\r\na=rtcp-fb:100 goog-remb\r\na=rtcp-fb:100 transport-cc\r\na=rtcp-fb:100 ccm fir\r\na=rtcp-fb:100 nack\r\na=rtcp-fb:100 nack pli\r\na=fmtp:100 profile-id=2\r\na=rtpmap:101 rtx/90000\r\na=fmtp:101 apt=100\r\na=rtpmap:102 H264/90000\r\na=rtcp-fb:102 goog-remb\r\na=rtcp-fb:102 transport-cc\r\na=rtcp-fb:102 ccm fir\r\na=rtcp-fb:102 nack\r\na=rtcp-fb:102 nack pli\r\na=fmtp:102 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42001f\r\na=rtpmap:122 rtx/90000\r\na=fmtp:122 apt=102\r\na=rtpmap:127 H264/90000\r\na=rtcp-fb:127 goog-remb\r\na=rtcp-fb:127 transport-cc\r\na=rtcp-fb:127 ccm fir\r\na=rtcp-fb:127 nack\r\na=rtcp-fb:127 nack pli\r\na=fmtp:127 level-asymmetry-allowed=1;packetization-mode=0;profile-level-id=42001f\r\na=rtpmap:121 rtx/90000\r\na=fmtp:121 apt=127\r\na=rtpmap:125 H264/90000\r\na=rtcp-fb:125 goog-remb\r\na=rtcp-fb:125 transport-cc\r\na=rtcp-fb:125 ccm fir\r\na=rtcp-fb:125 nack\r\na=rtcp-fb:125 nack pli\r\na=fmtp:125 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\r\na=rtpmap:107 rtx/90000\r\na=fmtp:107 apt=125\r\na=rtpmap:108 H264/90000\r\na=rtcp-fb:108 goog-remb\r\na=rtcp-fb:108 transport-cc\r\na=rtcp-fb:108 ccm fir\r\na=rtcp-fb:108 nack\r\na=rtcp-fb:108 nack pli\r\na=fmtp:108 level-asymmetry-allowed=1;packetization-mode=0;profile-level-id=42e01f\r\na=rtpmap:109 rtx/90000\r\na=fmtp:109 apt=108\r\na=rtpmap:124 H264/90000\r\na=rtcp-fb:124 goog-remb\r\na=rtcp-fb:124 transport-cc\r\na=rtcp-fb:124 ccm fir\r\na=rtcp-fb:124 nack\r\na=rtcp-fb:124 nack pli\r\na=fmtp:124 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=4d0032\r\na=rtpmap:120 rtx/90000\r\na=fmtp:120 apt=124\r\na=rtpmap:123 H264/90000\r\na=rtcp-fb:123 goog-remb\r\na=rtcp-fb:123 transport-cc\r\na=rtcp-fb:123 ccm fir\r\na=rtcp-fb:123 nack\r\na=rtcp-fb:123 nack pli\r\na=fmtp:123 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=640032\r\na=rtpmap:119 rtx/90000\r\na=fmtp:119 apt=123\r\na=rtpmap:114 red/90000\r\na=rtpmap:115 rtx/90000\r\na=fmtp:115 apt=114\r\na=rtpmap:116 ulpfec/90000\r\na=ssrc-group:FID 1421230216 1240120990\r\na=ssrc:1421230216 cname:Z+IPdsj5el515QAG\r\na=ssrc:1421230216 msid:13c0d704-1103-4f9b-9b49-9f0a16465044 c0ad0127-fe63-44af-a98a-28e1c89816d8\r\na=ssrc:1421230216 mslabel:13c0d704-1103-4f9b-9b49-9f0a16465044\r\na=ssrc:1421230216 label:c0ad0127-fe63-44af-a98a-28e1c89816d8\r\na=ssrc:1240120990 cname:Z+IPdsj5el515QAG\r\na=ssrc:1240120990 msid:13c0d704-1103-4f9b-9b49-9f0a16465044 c0ad0127-fe63-44af-a98a-28e1c89816d8\r\na=ssrc:1240120990 mslabel:13c0d704-1103-4f9b-9b49-9f0a16465044\r\na=ssrc:1240120990 label:c0ad0127-fe63-44af-a98a-28e1c89816d8\r\n"},"id":"6aebcb56-81a8-4690-b344-772c93d69945"}],"name":"test","participant":{"revision":3,"tracks":[{"enabled":true,"id":"6e7767e1-a842-4484-bd5a-6349e608e385","kind":"audio","name":"6e7767e1-a842-4484-bd5a-6349e608e385"},{"enabled":true,"id":"c0ad0127-fe63-44af-a98a-28e1c89816d8","kind":"video","name":"c0ad0127-fe63-44af-a98a-28e1c89816d8"}]},"type":"connect","version":1,"publisher":{"name":"twilio-video.js","sdk_version":"1.10.0"}}
+
+index.js:2593 Wed Mar 20 2019 11:28:22 GMT-0400 (Eastern Daylight Time) | sip.transport | received WebSocket text message:
+
+SIP/2.0 200 OK
+CSeq: 5863 INVITE
+Call-ID: s30ebhngap15u2p7s8km
+From: <sip:d5b432c4-a678-42e5-b971-7e1a9a08725d@endpoint.twilio.com>;tag=cqbuk0so0f
+To: <sip:orchestrator@endpoint.twilio.com>;tag=86804512_6772d868_c1ef22df-7737-4148-b599-11e6272f7281
+Via: SIP/2.0/WSS 127.0.0.1:36908;branch=z9hG4bK2839022;rport=36908
+Server: Twilio
+Contact: <sip:172.18.52.17:443;transport=wss>
+Allow: INVITE,ACK,CANCEL,OPTIONS,BYE
+Supported: room-signaling
+Require: timer
+Session-Expires: 120;refresher=uac
+Content-Type: application/room-signaling+json
+X-Twilio-CallSid: CA0fef8fc64e1124dd8573374215f1ab69
+X-Twilio-LegInfo: external
+X-Twilio-TlsVerify: true
+Content-Length: 3162
+
+{"version":1,"type":"connected","peer_connections":[{"id":"6aebcb56-81a8-4690-b344-772c93d69945","description":{"type":"answer","sdp":"v=0\r\no=- 3762084502 3762084502 IN IP4 0.0.0.0\r\ns=VM81fcb23e85cdf86a79520d709aae5562\r\nt=0 0\r\na=ice-lite\r\na=msid-semantic: WMS *\r\na=group:BUNDLE audio video\r\nm=audio 15932 UDP/TLS/RTP/SAVPF 111 0\r\nc=IN IP4 34.203.254.45\r\na=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level\r\na=rtcp:15932 IN IP4 34.203.254.45\r\na=rtpmap:111 opus/48000/2\r\na=rtpmap:0 PCMU/8000\r\na=fmtp:111 minptime=10;useinbandfec=1\r\na=candidate:3 1 UDP 2013266430 34.203.254.45 15932 typ host\r\na=candidate:3 2 UDP 2013266429 34.203.254.45 12978 typ host\r\na=rtcp-mux\r\na=setup:active\r\na=mid:audio\r\na=recvonly\r\na=ice-ufrag:OcSm\r\na=ice-pwd:NoMvq0SJGkm1tgSJ2sVarB\r\na=fingerprint:sha-256 06:D6:EF:4C:27:AF:29:BA:46:5D:DB:51:2A:02:B0:48:AC:C5:0E:66:AD:11:2E:6A:94:C8:F3:88:59:20:3C:44\r\nm=video 15932 UDP/TLS/RTP/SAVPF 96 125\r\nc=IN IP4 34.203.254.45\r\na=extmap:3 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time\r\na=rtcp:15932 IN IP4 34.203.254.45\r\na=rtpmap:96 VP8/90000\r\na=rtpmap:125 H264/90000\r\na=rtcp-fb:96 goog-remb\r\na=rtcp-fb:96 ccm fir\r\na=rtcp-fb:96 nack\r\na=rtcp-fb:96 nack pli\r\na=rtcp-fb:125 goog-remb\r\na=rtcp-fb:125 ccm fir\r\na=rtcp-fb:125 nack\r\na=rtcp-fb:125 nack pli\r\na=fmtp:125 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f\r\na=candidate:3 1 UDP 2013266430 34.203.254.45 15932 typ host\r\na=candidate:3 2 UDP 2013266429 34.203.254.45 12978 typ host\r\na=rtcp-mux\r\na=setup:active\r\na=mid:video\r\na=recvonly\r\na=ice-ufrag:OcSm\r\na=ice-pwd:NoMvq0SJGkm1tgSJ2sVarB\r\na=fingerprint:sha-256 06:D6:EF:4C:27:AF:29:BA:46:5D:DB:51:2A:02:B0:48:AC:C5:0E:66:AD:11:2E:6A:94:C8:F3:88:59:20:3C:44\r\n","revision":1}}],"sid":"RMaf467c25bbe941bb2f0e078ca22a73fc","name":"test","participant":{"sid":"PAdd1767f7aec58b6d852ab11b6d687179","identity":"YawningUlyssesNevis","tracks":[{"kind":"video","priority":"medium","id":"c0ad0127-fe63-44af-a98a-28e1c89816d8","enabled":true,"sid":"MT9c37b80cd09672d2854147f074423215","name":"c0ad0127-fe63-44af-a98a-28e1c89816d8","state":"ready"},{"kind":"audio","priority":"medium","id":"6e7767e1-a842-4484-bd5a-6349e608e385","enabled":true,"sid":"MTf58d02a19cc72448d61a651609b9bc2a","name":"6e7767e1-a842-4484-bd5a-6349e608e385","state":"ready"}],"revision":3,"state":"connected"},"participants":[],"recording":{"enabled":false,"revision":1},"subscribe":{"revision":1,"rules":[{"type":"include","all":true}]},"subscribed":{"revision":0,"tracks":[]},"published":{"revision":1,"tracks":[{"kind":"video","priority":"medium","id":"c0ad0127-fe63-44af-a98a-28e1c89816d8","enabled":true,"sid":"MT9c37b80cd09672d2854147f074423215","name":"c0ad0127-fe63-44af-a98a-28e1c89816d8","state":"ready"},{"kind":"audio","priority":"medium","id":"6e7767e1-a842-4484-bd5a-6349e608e385","enabled":true,"sid":"MTf58d02a19cc72448d61a651609b9bc2a","name":"6e7767e1-a842-4484-bd5a-6349e608e385","state":"ready"}]},"session":"1f1b45c5d8478dbcc7de98f9d9ee3a06af467c25bbe941bb2f0e078ca22a73fcdd1767f7aec58b6d852ab11b6d6871790fef8fc64e1124dd8573374215f1ab69"}
+
+index.js:2593 Wed Mar 20 2019 11:28:22 GMT-0400 (Eastern Daylight Time) | sip.dialog | new UAC dialog created with status CONFIRMED
+index.js:28546 2019-03-20 15:28:22.175Z | WARN in [object Object]: Calling setRemoteDescription with an RTCSessionDescription of type "answer" failed with the error "Failed to execute 'setRemoteDescription' on 'RTCPeerConnection': Failed to set remote answer sdp: The order of m-lines in answer doesn't match order in offer. Rejecting answer.".
+log @ index.js:28546
+index.js:28546 2019-03-20 15:28:22.175Z | WARN in [object Object]: The SDP was v=0
+o=- 3762084502 3762084502 IN IP4 0.0.0.0
+s=VM81fcb23e85cdf86a79520d709aae5562
+t=0 0
+a=ice-lite
+a=msid-semantic: WMS *
+a=group:BUNDLE audio video
+m=audio 15932 UDP/TLS/RTP/SAVPF 111 0
+c=IN IP4 34.203.254.45
+a=extmap:1 urn:ietf:params:rtp-hdrext:ssrc-audio-level
+a=rtcp:15932 IN IP4 34.203.254.45
+a=rtpmap:111 opus/48000/2
+a=rtpmap:0 PCMU/8000
+a=fmtp:111 minptime=10;useinbandfec=1
+a=candidate:3 1 UDP 2013266430 34.203.254.45 15932 typ host
+a=candidate:3 2 UDP 2013266429 34.203.254.45 12978 typ host
+a=rtcp-mux
+a=setup:active
+a=mid:audio
+a=recvonly
+a=ice-ufrag:OcSm
+a=ice-pwd:NoMvq0SJGkm1tgSJ2sVarB
+a=fingerprint:sha-256 06:D6:EF:4C:27:AF:29:BA:46:5D:DB:51:2A:02:B0:48:AC:C5:0E:66:AD:11:2E:6A:94:C8:F3:88:59:20:3C:44
+m=video 15932 UDP/TLS/RTP/SAVPF 96 125
+c=IN IP4 34.203.254.45
+a=extmap:3 http://www.webrtc.org/experiments/rtp-hdrext/abs-send-time
+a=rtcp:15932 IN IP4 34.203.254.45
+a=rtpmap:96 VP8/90000
+a=rtpmap:125 H264/90000
+a=rtcp-fb:96 goog-remb
+a=rtcp-fb:96 ccm fir
+a=rtcp-fb:96 nack
+a=rtcp-fb:96 nack pli
+a=rtcp-fb:125 goog-remb
+a=rtcp-fb:125 ccm fir
+a=rtcp-fb:125 nack
+a=rtcp-fb:125 nack pli
+a=fmtp:125 level-asymmetry-allowed=1;packetization-mode=1;profile-level-id=42e01f
+a=candidate:3 1 UDP 2013266430 34.203.254.45 15932 typ host
+a=candidate:3 2 UDP 2013266429 34.203.254.45 12978 typ host
+a=rtcp-mux
+a=setup:active
+a=mid:video
+a=recvonly
+a=ice-ufrag:OcSm
+a=ice-pwd:NoMvq0SJGkm1tgSJ2sVarB
+a=fingerprint:sha-256 06:D6:EF:4C:27:AF:29:BA:46:5D:DB:51:2A:02:B0:48:AC:C5:0E:66:AD:11:2E:6A:94:C8:F3:88:59:20:3C:44
+
+log @ index.js:28546
+index.js:2593 TwilioError: Client is unable to apply a remote media description
+    at MediaClientRemoteDescFailedError.TwilioError (http://localhost:3000/quickstart/index.js:30992:23)
+    at new MediaClientRemoteDescFailedError (http://localhost:3000/quickstart/index.js:30832:149)
+    at http://localhost:3000/quickstart/index.js:23873:15
+    at async Promise.all (index 0)
+    at async Promise.all (index 0)
+LoggerFactory.print @ index.js:2593
+index.js:2593 Wed Mar 20 2019 11:28:22 GMT-0400 (Eastern Daylight Time) | sip.transport | sending WebSocket message:
+
+ACK sip:172.18.52.17:443;transport=wss SIP/2.0
+Via: SIP/2.0/WSS t3kgq0t4s9ab.invalid;branch=z9hG4bK8244229
+Max-Forwards: 70
+To: <sip:orchestrator@endpoint.twilio.com>;tag=86804512_6772d868_c1ef22df-7737-4148-b599-11e6272f7281
+From: <sip:d5b432c4-a678-42e5-b971-7e1a9a08725d@endpoint.twilio.com>;tag=cqbuk0so0f
+Call-ID: s30ebhngap15u2p7s8km
+CSeq: 5863 ACK
+Supported: outbound, room-signaling, timer
+User-Agent: SIP.js/0.7.7
+Content-Length: 0
+
+
+
+index.js:2593 Wed Mar 20 2019 11:28:22 GMT-0400 (Eastern Daylight Time) | sip.transport | sending WebSocket message:
+
+BYE sip:172.18.52.17:443;transport=wss SIP/2.0
+Via: SIP/2.0/WSS t3kgq0t4s9ab.invalid;branch=z9hG4bK3067446
+Max-Forwards: 70
+To: <sip:orchestrator@endpoint.twilio.com>;tag=86804512_6772d868_c1ef22df-7737-4148-b599-11e6272f7281
+From: <sip:d5b432c4-a678-42e5-b971-7e1a9a08725d@endpoint.twilio.com>;tag=cqbuk0so0f
+Call-ID: s30ebhngap15u2p7s8km
+CSeq: 5864 BYE
+Reason: SIP ;cause=488 ;text="Not Acceptable Here"
+Supported: outbound, room-signaling, timer
+User-Agent: SIP.js/0.7.7
+Content-Length: 0
+
+
+
+index.js:2593 Wed Mar 20 2019 11:28:22 GMT-0400 (Eastern Daylight Time) | sip.ua | user requested closure...
+index.js:2593 Wed Mar 20 2019 11:28:22 GMT-0400 (Eastern Daylight Time) | sip.ua | closing registerContext
+index.js:2593 Wed Mar 20 2019 11:28:22 GMT-0400 (Eastern Daylight Time) | sip.registercontext | already unregistered
+LoggerFactory.print @ index.js:2593
+index.js:2593 Wed Mar 20 2019 11:28:22 GMT-0400 (Eastern Daylight Time) | sip.ua | closing session s30ebhngap15u2p7s8km16ksv2a942
+index.js:2593 Wed Mar 20 2019 11:28:22 GMT-0400 (Eastern Daylight Time) | sip.inviteclientcontext | canceling RTCSession
+index.js:2593 Wed Mar 20 2019 11:28:22 GMT-0400 (Eastern Daylight Time) | sip.inviteclientcontext | closing INVITE session s30ebhngap15u2p7s8km16ksv2a942
+index.js:28546 2019-03-20 15:28:22.188Z | INFO in [NTSIceServerSource #1]: Stopping
+index.js:28546 2019-03-20 15:28:22.188Z | DEBUG in [NTSIceServerSource #1]: Stopped
+index.js:2593 Wed Mar 20 2019 11:28:22 GMT-0400 (Eastern Daylight Time) | sip.dialog | dialog s30ebhngap15u2p7s8kmcqbuk0so0f86804512_6772d868_c1ef22df-7737-4148-b599-11e6272f7281 deleted
+index.js:28546 2019-03-20 15:28:22.191Z | INFO in [connect #1]: The automatically acquired LocalTracks will now be stopped
+index.js:28546 2019-03-20 15:28:22.191Z | INFO in [LocalAudioTrack #1: 6e7767e1-a842-4484-bd5a-6349e608e385]: Stopping
+index.js:28546 2019-03-20 15:28:22.193Z | DEBUG in [LocalAudioTrack #1: 6e7767e1-a842-4484-bd5a-6349e608e385]: Ended
+index.js:28546 2019-03-20 15:28:22.193Z | INFO in [LocalVideoTrack #2: c0ad0127-fe63-44af-a98a-28e1c89816d8]: Stopping
+index.js:28546 2019-03-20 15:28:22.193Z | DEBUG in [LocalVideoTrack #2: c0ad0127-fe63-44af-a98a-28e1c89816d8]: Ended
+index.js:28546 2019-03-20 15:28:22.193Z | INFO in [connect #1]: Error while connecting to a Room: TwilioError: Signaling connection disconnected
+    at SignalingConnectionDisconnectedError.TwilioError (http://localhost:3000/quickstart/index.js:30992:23)
+    at new SignalingConnectionDisconnectedError (http://localhost:3000/quickstart/index.js:30119:157)
+    at InviteClientContext.disconnect (http://localhost:3000/quickstart/index.js:26146:25)
+    at InviteClientContext.g (http://localhost:3000/quickstart/index.js:14545:16)
+    at InviteClientContext.EventEmitter.emit (http://localhost:3000/quickstart/index.js:14461:17)
+    at InviteClientContext.sendRequest (http://localhost:3000/quickstart/index.js:4831:10)
+    at InviteClientContext.acceptAndTerminate (http://localhost:3000/quickstart/index.js:5261:12)
+    at onFailure (http://localhost:3000/quickstart/index.js:6652:23)
+index.js:28546 2019-03-20 15:28:22.194Z | DEBUG in [object Object]: ICE connection state is "closed"
+index.js:2593 Wed Mar 20 2019 11:28:22 GMT-0400 (Eastern Daylight Time) | sip.transport | received WebSocket text message:
+
+SIP/2.0 200 OK
+CSeq: 5864 BYE
+Call-ID: s30ebhngap15u2p7s8km
+From: <sip:d5b432c4-a678-42e5-b971-7e1a9a08725d@endpoint.twilio.com>;tag=cqbuk0so0f
+To: <sip:orchestrator@endpoint.twilio.com>;tag=86804512_6772d868_c1ef22df-7737-4148-b599-11e6272f7281
+Via: SIP/2.0/WSS 127.0.0.1:36908;branch=z9hG4bK3067446;rport=36908
+Server: Twilio
+Supported: room-signaling
+Content-Type: application/room-signaling+json
+X-Twilio-CallSid: CA0fef8fc64e1124dd8573374215f1ab69
+X-Twilio-LegInfo: external
+X-Twilio-TlsVerify: true
+Content-Length: 200
+
+{"version":1,"type":"disconnected","sid":"RMaf467c25bbe941bb2f0e078ca22a73fc","name":"test","participants":[],"subscribe":{"revision":1,"rules":[{"type":"include","all":true}]},"status":"in-progress"}
+
+index.js:2593 Wed Mar 20 2019 11:28:22 GMT-0400 (Eastern Daylight Time) | sip.transport | closing WebSocket wss://endpoint.twilio.com
+index.js:2593 Wed Mar 20 2019 11:28:24 GMT-0400 (Eastern Daylight Time) | sip.transport | WebSocket disconnected (code: 1006)
+index.js:2593 Wed Mar 20 2019 11:28:24 GMT-0400 (Eastern Daylight Time) | sip.transport | WebSocket abrupt disconnection
+LoggerFactory.print @ index.js:2593
+index.js:2593 Wed Mar 20 2019 11:28:24 GMT-0400 (Eastern Daylight Time) | sip.ua | connection state set to 1
+index.js:2593 Wed Mar 20 2019 11:28:24 GMT-0400 (Eastern Daylight Time) | sip.transaction.ict | transport error occurred, deleting INVITE client transaction z9hG4bK2839022
