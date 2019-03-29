@@ -8,30 +8,50 @@
 /* eslint-env node */
 const chai = require('chai');
 const expect = chai.expect;
+const sinon = require('sinon');
+const sinonChai = require('sinon-chai');
+chai.use(sinonChai);
 
 describe('Firefox shim', () => {
-  const shim = require('../../src/js/firefox/firefox_shim');
+  const shim = require('../../dist/firefox/firefox_shim');
   let window;
 
   beforeEach(() => {
     window = {
-      mozRTCPeerConnection: function() {},
-      mozRTCSessionDescription: function() {},
-      mozRTCIceCandidate: function() {}
+      navigator: {
+        mediaDevices: {
+          getUserMedia: sinon.stub(),
+        },
+      },
     };
   });
 
-  describe('shimPeerConnection', () => {
-    it('creates window.RTCPeerConnection', () => {
-      shim.shimPeerConnection(window);
-      expect(window.RTCPeerConnection).not.to.equal(undefined);
+  describe('getDisplayMedia shim', () => {
+    it('does not if navigator.mediaDevices does not exist', () => {
+      delete window.navigator.mediaDevices;
+      shim.shimGetDisplayMedia(window);
+      expect(window.navigator.mediaDevices).to.equal(undefined);
     });
 
-    it('does not override window.RTCPeerConnection if it exists', () => {
-      const pc = function() {};
-      window.RTCPeerConnection = pc;
-      shim.shimPeerConnection(window);
-      expect(window.RTCPeerConnection).to.equal(pc);
+    it('does not overwrite an existing ' +
+        'navigator.mediaDevices.getDisplayMedia', () => {
+      window.navigator.mediaDevices.getDisplayMedia = 'foo';
+      shim.shimGetDisplayMedia(window, 'screen');
+      expect(window.navigator.mediaDevices.getDisplayMedia).to.equal('foo');
+    });
+
+    it('shims navigator.mediaDevices.getDisplayMedia', () => {
+      shim.shimGetDisplayMedia(window, 'screen');
+      expect(window.navigator.mediaDevices.getDisplayMedia).to.be.a('function');
+    });
+
+    ['screen', 'window'].forEach((mediaSource) => {
+      it('calls getUserMedia with the given default mediaSource', () => {
+        shim.shimGetDisplayMedia(window, mediaSource);
+        window.navigator.mediaDevices.getDisplayMedia({video: true});
+        expect(window.navigator.mediaDevices.getUserMedia)
+          .to.have.been.calledWith({video: {mediaSource}});
+      });
     });
   });
 });

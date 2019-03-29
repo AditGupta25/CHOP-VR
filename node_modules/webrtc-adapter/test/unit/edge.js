@@ -8,9 +8,12 @@
 /* eslint-env node */
 const chai = require('chai');
 const expect = chai.expect;
+const sinon = require('sinon');
+const sinonChai = require('sinon-chai');
+chai.use(sinonChai);
 
 describe('Edge shim', () => {
-  const shim = require('../../src/js/edge/edge_shim');
+  const shim = require('../../dist/edge/edge_shim');
   let window;
 
   const ua15025 = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) ' +
@@ -21,8 +24,9 @@ describe('Edge shim', () => {
     window = {
       navigator: {
         userAgent: ua15025,
-        mediaDevices: function() {}
-      }
+        mediaDevices: {},
+        getDisplayMedia: sinon.stub,
+      },
     };
     shim.shimPeerConnection(window);
   });
@@ -41,14 +45,14 @@ describe('Edge shim', () => {
 
   describe('filtering of STUN and TURN servers', () => {
     const edgeVersion = 15025;
-    const filterIceServers = require('../../src/js/edge/filtericeservers');
+    const {filterIceServers} = require('../../dist/edge/filtericeservers');
 
     it('converts legacy url member to urls', () => {
       const result = filterIceServers([
-        {url: 'stun:stun.l.google.com'}
+        {url: 'turn:stun.l.google.com:19302?transport=udp'}
       ], edgeVersion);
       expect(result).to.deep.equal([
-        {urls: 'stun:stun.l.google.com'}
+        {urls: 'turn:stun.l.google.com:19302?transport=udp'}
       ]);
     });
 
@@ -59,13 +63,11 @@ describe('Edge shim', () => {
       expect(result).to.deep.equal([]);
     });
 
-    it('does not filter STUN without protocol after r14393', () => {
+    it('does filter STUN without protocol after r14393', () => {
       const result = filterIceServers([
         {urls: 'stun:stun.l.google.com'}
       ], edgeVersion);
-      expect(result).to.deep.equal([
-        {urls: 'stun:stun.l.google.com'}
-      ]);
+      expect(result).to.deep.equal([]);
     });
 
     it('does filter STUN with protocol even after r14393', () => {
@@ -98,24 +100,47 @@ describe('Edge shim', () => {
           {urls: 'turn:stun.l.google.com:19302?transport=udp'}
         ], edgeVersion);
         expect(result).to.deep.equal([
-          {urls: 'stun:stun.l.google.com'},
           {urls: 'turn:stun.l.google.com:19301?transport=udp'}
         ]);
       });
 
       it('in urls entries', () => {
         const result = filterIceServers([
-          {urls: 'stun:stun.l.google.com'},
           {urls: [
             'turn:stun.l.google.com:19301?transport=udp',
             'turn:stun.l.google.com:19302?transport=udp'
           ]}
         ], edgeVersion);
         expect(result).to.deep.equal([
-          {urls: 'stun:stun.l.google.com'},
           {urls: ['turn:stun.l.google.com:19301?transport=udp']}
         ]);
       });
+    });
+  });
+
+  describe('getDisplayMedia shim', () => {
+    it('does nothing if navigator.getDisplayMedia does not exist', () => {
+      delete window.navigator.getDisplayMedia;
+      shim.shimGetDisplayMedia(window);
+      expect(window.navigator.mediaDevices.getDisplayMedia).to.equal(undefined);
+    });
+
+    it('does not if navigator.mediaDevices does not exist', () => {
+      delete window.navigator.mediaDevices;
+      shim.shimGetDisplayMedia(window);
+      expect(window.navigator.mediaDevices).to.equal(undefined);
+    });
+
+    it('does not overwrite an existing ' +
+        'navigator.mediaDevices.getDisplayMedia', () => {
+      window.navigator.mediaDevices.getDisplayMedia = 'foo';
+      shim.shimGetDisplayMedia(window);
+      expect(window.navigator.mediaDevices.getDisplayMedia).to.equal('foo');
+    });
+
+    it('shims navigator.mediaDevices.getDisplayMedia', () => {
+      shim.shimGetDisplayMedia(window);
+      expect(window.navigator.mediaDevices.getDisplayMedia).to.be.a('function');
     });
   });
 });

@@ -13,8 +13,8 @@ const sinonChai = require('sinon-chai');
 chai.use(sinonChai);
 
 describe('adapter factory', () => {
-  const adapterFactory = require('../../src/js/adapter_factory.js');
-  const utils = require('../../src/js/utils.js');
+  const {adapterFactory} = require('../../dist/adapter_factory.js');
+  const utils = require('../../dist/utils.js');
 
   let window;
   beforeEach(() => {
@@ -43,6 +43,7 @@ describe('adapter factory', () => {
   it('does not throw in Firefox with peerconnection disabled', () => {
     window = {navigator: {
       mozGetUserMedia: () => {},
+      mediaDevices: {getUserMedia: () => {}},
       userAgent: 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:44.0) ' +
           'Gecko/20100101 Firefox/44.0'
     }};
